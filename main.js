@@ -1,35 +1,32 @@
-//  ---------------------------------  VARIABLES  -------------------------------------
+//  ---------------------------------  VARIABLES GLOBALES  -------------------------------------
 let salir;
 let cliente;
 let numCuentasBancarias = [];
 let cuentasBancarias = [];
-//  ---------------------------------  CLASES  -------------------------------------
-// 1____Clase Cuenta
+
+// ----------------------------------------------------------------------------------
+//  ---------------------------------  CLASES  --------------------------------------
+
+// ***********  1____Clase Cuenta
 class Cuenta{
     constructor(id, nombre){
         this.id = id
         this.nombre = nombre;
-        this.numeroCuenta = ''
+        this.numeroCuenta = this.generarNumeroCuenta()
         this.saldo = 0
         this.transfereciaRealizada = 0;
     }
     generarNumeroCuenta(){
-        this.numeroCuenta = String(Math.random(Math.random() * 1000000000000))
-        while ( numCuentasBancarias.includes(numero) ){
-            this.numeroCuenta = String(Math.random(Math.random() * 1000000000000))
+        this.numeroCuenta = (Math.floor(Math.random() * 100000000)).toString()
+        while ( numCuentasBancarias.includes(this.numeroCuenta) ){
+            this.numeroCuenta = (Math.floor(Math.random() * 100000000)).toString()
         }
         numCuentasBancarias.push(this.numeroCuenta)
+        return this.numeroCuenta
     }
-    mostrarMensaje(mensaje){
-        alert(mensaje)
-    }
-    agregarSaldo(cantidad){
-        this.saldo += cantidad
-    }
-
 }
 
-// 2____Clase de credito
+// *********** 2____Clase de Credito
 class Credito{
     constructor(monto, anios, tipoCredito){
         this.monto = monto;
@@ -41,15 +38,15 @@ class Credito{
         const interes = 0.092
         const montoCredito = parseFloat(this.monto) * (1+interes)
         const meses = parseFloat(this.anios) * 12
-        alert(`El monto total a pagar de su crédito es de ${(montoCredito).toFixed(2)}, por ${meses} meses.
-               Su pago mensual es de ${(montoCredito/meses).toFixed(2)}.`)
+        alert(`El monto total a pagar de su crédito es de $${(montoCredito).toFixed(2)}, por ${meses} meses.
+               Su pago mensual es de $${(montoCredito/meses).toFixed(2)}.`)
     }
 }
 
-
+// ----------------------------------------------------------------------------------
 // ---------------------------------  FUNCIONES -------------------------------------
 
-// ____Funciones Menu
+// *********** ____Funciones Menu
 
 function mostrarMenuDeOpciones(){
     let opcionSeleccionada = parseInt(prompt(`
@@ -80,17 +77,17 @@ function menuOpciones(opcion){
         break;
         case 5:
             salir = false
-            alert('👋 Gracias por visitar nuestra Fintech');
+            alert('👋 Gracias por visitar nuestra Fintech.');
         break;
         default:
-            alert('Ingrese una opción correcta');
+            alert('😥 Por favor, ingrese una opción correcta.');
     }
 }
 while (salir != false){
     mostrarMenuDeOpciones();
 }
 
-// 1____Funcion Crear Cuenta
+// *********** 1____Funcion Crear Cuenta
 
 function crearCuenta(){
     const idIngresado = prompt('Ingrese su id: ');
@@ -102,56 +99,60 @@ function crearCuenta(){
     }
     cliente = new Cuenta(idIngresado, nombreIngresado);
     cuentasBancarias = [ ...cuentasBancarias, cliente]
-    console.log(cliente)
-    console.log(cuentasBancarias)
-    cliente.mostrarMensaje('Su cuenta ha sido creada exitosamente');
+    alert('Su cuenta ha sido creada exitosamente');
+    console.table(cuentasBancarias)
 }
 
-// 2____Funcion Ingresar Dinero
+// *********** 2____Funcion Ingresar Dinero
 function ingresarDinero(){
+    let cuentaIngresado = prompt('Ingrese su numero de cuenta: ')
     let dineroIngresado = parseInt(prompt('Ingrese el monto a depositar en su cuenta: '))
-    while (dineroIngresado === 0){
+    while (dineroIngresado === 0 || dineroIngresado === ''){
         dineroIngresado = parseInt(prompt('Ingrese el monto a depositar en su cuenta: '))
     }
-    cliente.agregarSaldo(dineroIngresado)
-
-    const { saldo } = cliente
-    cliente.mostrarMensaje(`Su saldo actual es ${saldo}`)
+    const existeCuenta = cuentasBancarias.map(cuenta => {
+        if(cuenta.numeroCuenta == cuentaIngresado){
+            cuenta.saldo += dineroIngresado
+            alert(`Sr(a). ${cuenta.nombre} con cuenta numero: ${cuenta.numeroCuenta}.
+                Su saldo es de $${cuenta.saldo} fue ingresado exitosamente.`)
+           
+        }
+    })
+    if(!existeCuenta){
+        alert('La cuenta ingresada no existe');
+    }
 }
-// 3____Funcion Realizar transferencia
+
+// ***********  3____Funcion Realizar transferencia
 function realizarTransferencia(){
     
-    let montoATransferir = parseInt(prompt('Ingrese el monto a tranferir: '))
+    let montoATransferir = parseInt(prompt('Ingrese el monto a transferir: '))
     let cuentaDeTransferencia = prompt('Ingrese su numero de cuenta: ')
     let cuentaParaLaTransferencia = prompt('Ingrese el numero de cuenta para la transferencia: ')
     while( montoATransferir === 0 ) {
-        montoATransferir = parseInt(prompt('Ingrese el monto a tranferir: '))
+        montoATransferir = parseInt(prompt('Ingrese el monto a transferir: '))
     }
-    //si la cuenta que recibe la tranferencia existe 
-    cuentasBancarias.forEach( cuentaRecibe => {
-       if( cuentaRecibe.numeroCuenta === cuentaParaLaTransferencia ){
-                //si la cuenta que realiza la tranferencia tiene saldo
-            const existeSaldo = cuentasBancarias.map( cuentaEnvia => {
+
+    //si la cuenta que recibe la transferencia existe 
+    const cuentaReceptora = cuentasBancarias.find( cuentaRecibe => {
+        if( cuentaRecibe.numeroCuenta === cuentaParaLaTransferencia ){
+            //si la cuenta que realiza la transferencia tiene saldo
+            cuentasBancarias = cuentasBancarias.map( cuentaEnvia => {
                 if(cuentaEnvia.numeroCuenta === cuentaDeTransferencia){
                     if(cuentaEnvia.saldo >= montoATransferir){
                         cuentaEnvia.saldo -= montoATransferir
+                        cuentaEnvia.transfereciaRealizada += montoATransferir
                         cuentaRecibe.saldo += montoATransferir
+                        alert(`El numero de cuenta ${cuentaDeTransferencia} realizo una transferencia 
+                            al numero de cuenta ${cuentaParaLaTransferencia}. Por un monto de $${montoATransferir}
+                        `)
                     }
                 }
-            })
-            if ( !existeSaldo ) {
-                cliente.mostrarMensaje('Usted no tiene saldo en su cuenta.')
-                return;
-            }
-            cliente.mostrarMensaje('Transferencia enviada exitosamente.')
-        }else{
-            cliente.mostrarMensaje('La cuenta a la cual quiere transferir dinero, no existe.')
-            return;
-        }
-    })
+            })   
+    }}) 
 }
 
-// 4____Funcion Simulador de Credito
+// ***********  4____Funcion Simulador de Credito
 
 function simuladorCredito(){
     let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);
