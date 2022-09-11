@@ -24,6 +24,7 @@ class Cuenta{
         numCuentasBancarias.push(this.numeroCuenta)
         return this.numeroCuenta
     }
+
 }
 
 // *********** 2____Clase de Credito
