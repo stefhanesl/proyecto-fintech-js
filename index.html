@@ -1,12 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto Fintech</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="./main.js"></script>
+    <div class="container">
+        <div class="container-navbar">
+            <a href="#home" id="logo"><img src="./img/logo-fintech.jpg"/></a>
+            <div class="navbar">
+              <ul>
+                <li> <a href="#cuentas"   class="navbar-item">Inicio</a></li>
+                <li> <a href="#cuentas"   class="navbar-item">Simulador de Crédito</a></li>
+                <li> <a href="#creditos" class="navbar-item">Conócenos</a></li>
+              </ul>
+              <div class="btn-navbar-botones">
+                <div class="btn-navbar" id="btn-abrir-cuenta"><a href="#abrir_cuenta" >Abre tu cuenta</a></div>
+                <div class="btn-navbar" id="btn-iniciar-sesion"><a href="#Iniciar sesión" >Iniciar sesión</a></div>
+              </div>
+            </div>
+        </div>
+        
+        <div class="container-form-registro">
+          <div id="form-abrir-cuenta">
+            <img src="./img/marca-x.png" id="icono-x" alt="icono-x"/>
+            <h3 id="titulo-form-data">¡Empecemos! <br/><span>Ingresa tus datos</span></h3>
+            <form action="" id="formulario-principal">
+              <div class="data-form">
+                <input class="data-form-input" type="number" id="fid" name="fid">
+                <label  for="fid" class="data-form-text">ID*</label>
+                <span class="form__line"></span>
+              </div>
+              <div class="data-form">
+                <input class="data-form-input" type="text" id="fnombre" name="fnombre">
+              
+                <label class="data-form-text" for="fnombre">Nombre*</label>
+                <span class="form__line"></span>
+              </div>
+              <div class="data-form">
+                <input class="data-form-input" type="text" id="fapellido"" name="fapellido"">
+                
+                <label class="data-form-text" for="fapellido">Apellido*</label>
+                <span class="form__line"></span>
+              </div>
+              <div class="data-form">
+                <input class="data-form-input" type="date" id="fnacimiento" name="fnacimiento" max="today">
+                <label class="data-form-text" for="fnacimiento">Fecha de Nacimiento*</label>
+                <span class="form__line"></span>
+              </div>
+              <div class="data-form">
+                <input class="data-form-input" type="password" id="fcontrasena" name="fcontrasena">
+                <label  for="fcontrasena" class="data-form-text">Contraseña*</label>
+                <span class="form__line"></span>
+              </div>
+              <button type="submit" class="data-form-input"  id="btn-enviar-registro">Deseo mi cuenta</button>
+            </form>
+          </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
 </body>
 </html>
