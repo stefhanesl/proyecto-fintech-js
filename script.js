@@ -13,6 +13,7 @@ const contrasenaInput = document.getElementById('fcontrasena');
 // Elementos de Iniciar sesion
 const iniciarSesionContainer = document.querySelector('.container-form-iniciar-sesion');
 const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
+const formularioIniciarSesion = document.querySelector('#formulario-principal-iniciar-sesion')
 // Simulador de credito
 const btnSimuladorCredito = document.querySelector('#simulador-credito a')
 
@@ -33,10 +34,14 @@ function eventoslistener(){
     btnRegistro.addEventListener('click', (e) => {
      formContainer.classList.add('form-registro-is-active');
     })
+    btnIniciarSesion.addEventListener('click', (e) => {
+        iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
+    })
     btnSalirForm.addEventListener('click', (e)=>{
      formContainer.classList.remove('form-registro-is-active');
-     iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active', 'form-iniciar-sesion-is-active');
+     iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active');
     })
+    
     // ----- Evento para validar datos y resgistrar cuenta -----
     idInput.addEventListener('focusout', validarDatosInput);
     nombreInput.addEventListener('focusout', validarDatosInput);
@@ -45,16 +50,15 @@ function eventoslistener(){
     contrasenaInput.addEventListener('focusout', validarDatosInput);
     formulario.addEventListener('submit', validarFormulario);
     //-------- Eventos para iniciar sesion --------------------------
-    btnIniciarSesion.addEventListener('click', (e) => {
-        iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
-    })
+    
+    formularioIniciarSesion.addEventListener('submit', validarIniciosesion)
     //-------- Eventos para simulador de credito --------------------------
     btnSimuladorCredito.addEventListener('click', simuladorCredito)
 }
 
 //********************************    CLASES    ******************************** /
 
-//! ---------- 1. Crear registro  ----------
+//! ---------- 1. Crear registro  --------------------------------------
 
 class Cuenta{
     constructor( id, nombre, apellido, nacimiento, clave ){
@@ -78,7 +82,7 @@ class Cuenta{
 
 }
 
-//! ---------- 3.Simulador de credito  ----------
+//! ---------- 3.Simulador de credito  ------------------------------
 class Credito{
     constructor(monto, anios, tipoCredito){
         this.monto = monto;
@@ -96,7 +100,7 @@ class Credito{
 }
 //********************************    FUNCIONES  ******************************** /
 
-//! ---------- 1. Crear registro al validar los datos ----------
+//! ---------- 1. Crear registro al validar los datos --------------------
 function validarDatosInput(e){
     if( e.target.value === ''){
         mostrarMensaje('*Este campo es obligatorio', 'error');
@@ -130,9 +134,38 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
     console.table(cuentasBancarias);
 
 }
-//! ---------- Iniciar sesion ----------
+//! ---------- Iniciar sesion ----------------------------------------
+function validarIniciosesion(){
+    e.preventDefault()
 
-//! ---------- 3. Funcion Simulador de Credito ----------
+    console.log('validando datos... ')
+    const idInicioSesion = document.querySelector('#id').value
+    const contrasenaInicioSesion = document.querySelector('#contrasena').value
+    console.log('Revisando cuentas', cuentasBancarias)
+    console.log('idInicioSesion', idInicioSesion)
+    console.log('contrasenaInicioSesion', contrasenaInicioSesion)
+    
+
+    const existeID = cuentasBancarias.find( cuenta => cuenta.id === idInicioSesion )
+    console.log('existe cuenta', existeID)
+    if(!existeID){
+        mostrarMensaje('El ID ingresado es inválido.', 'error') 
+        return;       
+    }
+
+    const existeContrasena = existeID.clave === contrasenaInicioSesion
+
+    if(!existeContrasena){
+        mostrarMensaje('La contrasena ingresada es inválida.', 'error')
+        console.log('error clave')
+        return;
+    }
+    console.log('inicio correcto')
+
+
+
+}
+//! ---------- 3. Funcion Simulador de Credito -----------------------
 function simuladorCredito(){
     let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);
     while( isNaN(montoIngresado) || parseFloat(montoIngresado) == 0){
@@ -162,16 +195,19 @@ function maximaFechaInput(){
 // Mostar mensaje de error o de exito si se ha completado algun campo o formulario
 function mostrarMensaje(mensaje, tipo){
 
-    const existeError = document.querySelector('#form-abrir-cuenta .error');
-    const divMensaje = document.createElement('div');
-    
-    if(!existeError){
-        divMensaje.classList.add('error');
+    const divMensajes  = document.querySelectorAll('.mensaje-info')
+    divMensajes.forEach( divMensaje => {
+        console.log('mensaje', divMensaje)
+        if( tipo === 'error'){
+            divMensaje.classList.add('error');
+        }else{
+            divMensaje.classList.add('exito');
+        }
         divMensaje.textContent = mensaje;
-        document.querySelector('#form-abrir-cuenta').insertBefore(divMensaje, formulario)
-    }
-
-    setTimeout(() => {
-        divMensaje.remove()
-    }, 2000);
+        setTimeout(() => {
+            divMensaje.textContent = ''
+            divMensaje.classList.remove('error', 'exito')
+        }, 3000); 
+    })
+    return;
 }

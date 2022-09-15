@@ -181,3 +181,7 @@ label.data-form-text{
     border-radius: 5px;
     margin-top: 0.8em;
 }
+.exito{
+    color: #229605;
+    border: 1px solid #229605;
+}
