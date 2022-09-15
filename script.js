@@ -1,15 +1,21 @@
 //********************************     VARIABLES  ******************************** /
-// ----- Variables HTML -----
+// ---------- Variables HTML ----------
+// Elementos de registro
 const btnRegistro = document.querySelector('#btn-abrir-cuenta');
 const formContainer = document.querySelector('.container-form-registro');
 const formulario = document.querySelector('#formulario-principal');
-const btnSalirForm = document.querySelector('#icono-x');
-// const submitFormulario = document.querySelector('btn-enviar-registro')
+const btnSalirForm = document.querySelector('img.icono-x');
 const idInput = document.getElementById('fid');
 const nombreInput = document.getElementById('fnombre');
 const apellidoInput = document.getElementById('fapellido');
 const nacimientoInput = document.getElementById('fnacimiento');
 const contrasenaInput = document.getElementById('fcontrasena');
+// Elementos de Iniciar sesion
+const iniciarSesionContainer = document.querySelector('.container-form-iniciar-sesion');
+const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
+// Simulador de credito
+const btnSimuladorCredito = document.querySelector('#simulador-credito a')
+
 
 // ----- Variables  -----
 let cliente;
@@ -29,6 +35,7 @@ function eventoslistener(){
     })
     btnSalirForm.addEventListener('click', (e)=>{
      formContainer.classList.remove('form-registro-is-active');
+     iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active', 'form-iniciar-sesion-is-active');
     })
     // ----- Evento para validar datos y resgistrar cuenta -----
     idInput.addEventListener('focusout', validarDatosInput);
@@ -37,9 +44,17 @@ function eventoslistener(){
     nacimientoInput.addEventListener('focusout', validarDatosInput);
     contrasenaInput.addEventListener('focusout', validarDatosInput);
     formulario.addEventListener('submit', validarFormulario);
+    //-------- Eventos para iniciar sesion --------------------------
+    btnIniciarSesion.addEventListener('click', (e) => {
+        iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
+    })
+    //-------- Eventos para simulador de credito --------------------------
+    btnSimuladorCredito.addEventListener('click', simuladorCredito)
 }
 
 //********************************    CLASES    ******************************** /
+
+//! ---------- 1. Crear registro  ----------
 
 class Cuenta{
     constructor( id, nombre, apellido, nacimiento, clave ){
@@ -63,9 +78,25 @@ class Cuenta{
 
 }
 
+//! ---------- 3.Simulador de credito  ----------
+class Credito{
+    constructor(monto, anios, tipoCredito){
+        this.monto = monto;
+        this.anios = anios;
+        this.tipoCredito = tipoCredito;
+    }
+
+    calcularCredito(){
+        const interes = 0.092
+        const montoCredito = parseFloat(this.monto) * (1+interes)
+        const meses = parseFloat(this.anios) * 12
+        alert(`El monto total a pagar de su crédito es de $${(montoCredito).toFixed(2)}, por ${meses} meses.
+               Su pago mensual es de $${(montoCredito/meses).toFixed(2)}.`)
+    }
+}
 //********************************    FUNCIONES  ******************************** /
 
-//! ---------- Crear registro al validar los datos ----------
+//! ---------- 1. Crear registro al validar los datos ----------
 function validarDatosInput(e){
     if( e.target.value === ''){
         mostrarMensaje('*Este campo es obligatorio', 'error');
@@ -99,8 +130,28 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
     console.table(cuentasBancarias);
 
 }
+//! ---------- Iniciar sesion ----------
 
+//! ---------- 3. Funcion Simulador de Credito ----------
+function simuladorCredito(){
+    let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);
+    while( isNaN(montoIngresado) || parseFloat(montoIngresado) == 0){
+        montoIngresado = prompt('Ingrese el monto de su crédito:', 0);
+    }
 
+    let aniosIngresados = prompt('Ingrese el tiempo del credito en años: ', 0);
+    while( isNaN(aniosIngresados) || parseFloat(aniosIngresados) == 0 ){
+        aniosIngresados = prompt('Ingrese el tiempo del credito en años: ', 0);
+    }
+
+    let tipoCreditoIngresado = prompt('Ingrese el tipo de crédito: ');
+    while( tipoCreditoIngresado == '' || !isNaN(tipoCreditoIngresado) ){
+        tipoCreditoIngresado = prompt('Ingrese el tipo de crédito: ');
+    }
+    let credito = new Credito(montoIngresado, aniosIngresados, tipoCreditoIngresado);
+    
+    credito.calcularCredito();
+}
 //! --------------- Funciones para la interfaz de usuario ---------------
 //Carga a fecha maxima que puede tener el formulario
 function maximaFechaInput(){

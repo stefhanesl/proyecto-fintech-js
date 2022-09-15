@@ -14,9 +14,9 @@
             <a href="#home" id="logo"><img src="./img/logo-fintech.jpg"/></a>
             <div class="navbar">
               <ul>
-                <li> <a href="#cuentas"   class="navbar-item">Inicio</a></li>
-                <li> <a href="#cuentas"   class="navbar-item">Simulador de Crédito</a></li>
-                <li> <a href="#creditos" class="navbar-item">Conócenos</a></li>
+                <li> <a href="#incio"   class="navbar-item">Inicio</a></li>
+                <li id="simulador-credito"> <a href="#simulador_credito"   class="navbar-item">Simulador de Crédito</a></li>
+                <li> <a href="#nosotros" class="navbar-item">Conócenos</a></li>
               </ul>
               <div class="btn-navbar-botones">
                 <div class="btn-navbar" id="btn-abrir-cuenta"><a href="#abrir_cuenta" >Abre tu cuenta</a></div>
@@ -27,7 +27,7 @@
         
         <div class="container-form-registro">
           <div id="form-abrir-cuenta">
-            <img src="./img/marca-x.png" id="icono-x" alt="icono-x"/>
+            <img src="./img/marca-x.png" class="icono-x" alt="icono-x"/>
             <h3 id="titulo-form-data">¡Empecemos! <br/><span>Ingresa tus datos</span></h3>
             <form action="" id="formulario-principal">
               <div class="data-form">
@@ -61,6 +61,28 @@
             </form>
           </div>
         </div>
+
+
+        <div class="container-form-iniciar-sesion">
+          <div id="form-iniciar-sesion">
+            <img src="./img/marca-x.png" class="icono-x" alt="icono-x"/>
+            <h3 id="titulo-form-iniciar-sesion">Iniciar sesión</h3>
+            <form action="" id="formulario-principal-iniciar-sesion">
+              <div class="data-form">
+                <input class="data-form-input" type="number" id="id" name="id" />
+                <label  for="id" class="data-form-text">Ingrese ID</label>
+                <span class="form__line"></span>
+              </div>
+              <div class="data-form">
+                <input class="data-form-input" type="password" id="contrasena" name="contrasena" />
+                <label  for="contrasena" class="data-form-text">Ingrese contraseña</label>
+                <span class="form__line"></span>
+              </div>
+              <button type="submit" class="data-form-input"  id="btn-submit-iniciar-sesion">Entrar</button>
+            </form>
+          </div>
+        </div>
+        
     </div>
     <script src="./script.js"></script>
 </body>
