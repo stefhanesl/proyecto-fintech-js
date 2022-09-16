@@ -9,21 +9,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="container-navbar">
-            <a href="#home" id="logo"><img src="./img/logo-fintech.jpg"/></a>
-            <div class="navbar">
-              <ul>
-                <li> <a href="#incio"   class="navbar-item">Inicio</a></li>
-                <li id="simulador-credito"> <a href="#simulador_credito"   class="navbar-item">Simulador de Crédito</a></li>
-                <li> <a href="#nosotros" class="navbar-item">Conócenos</a></li>
-              </ul>
-              <div class="btn-navbar-botones">
-                <div class="btn-navbar" id="btn-abrir-cuenta"><a href="#abrir_cuenta" >Abre tu cuenta</a></div>
-                <div class="btn-navbar" id="btn-iniciar-sesion"><a href="#Iniciar sesión" >Iniciar sesión</a></div>
-              </div>
-            </div>
+    <header>
+      <div class="container-navbar">
+        <a href="#home" id="logo"><img src="./img/logo-fintech.jpg"/></a>
+        <div class="navbar">
+          <ul>
+            <li> <a href="#incio"   class="navbar-item">Inicio</a></li>
+            <li id="simulador-credito"> <a href="#simulador_credito"   class="navbar-item">Simulador de Crédito</a></li>
+            <li> <a href="#nosotros" class="navbar-item">Conócenos</a></li>
+          </ul>
+          <div class="btn-navbar-botones">
+            <div class="btn-navbar" id="btn-abrir-cuenta"><a href="#abrir_cuenta" >Abre tu cuenta</a></div>
+            <div class="btn-navbar" id="btn-iniciar-sesion"><a href="#Iniciar sesión" >Iniciar sesión</a></div>
+          </div>
         </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+
         
         <div class="container-form-registro">
           <div id="form-abrir-cuenta">
@@ -85,7 +89,59 @@
           </div>
         </div>
         
-    </div>
+        <div id="pageiniciosesion" class="inicio-oculto">
+          <button id="salir-sesion-cuenta">SALIR</button>
+          <div id="datos-cliente-contenedor" >
+            <h2  class="mensaje-bienvenida"></h2>
+            <div class="informacion-cliente">
+            </div>
+          </div>
+
+          <div class="contenido-botones">
+            <h2>Acciones</h2>
+            <button id="ingresar-dinero">Ingresar Dinero</button>
+            <button id="transferencias">Tranferencias</button>
+            <button id="inversiones">Invertir</button>
+          </div>
+          
+          <div id="balance-cuenta" class="">
+            <h2>Resumen De Movimientos</h2>
+            <table class="balance-tabla">
+              <tr>
+          
+                <th>Fecha</th>
+            
+                <th>Numero de cuenta</th>
+            
+                <th>Detalle</th>
+
+                <th>Monto</th>
+
+                <th>Saldo</th>
+
+            
+              </tr>
+            
+              <tr>
+            
+                <td>datos</td>
+            
+                <td>datos</td>
+
+                <td>datos</td>
+
+                <td>datos</td>
+
+                <td>datos</td>
+
+              </tr>
+            
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </main>
     <script src="./script.js"></script>
 </body>
 </html>

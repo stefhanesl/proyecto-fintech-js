@@ -5,11 +5,15 @@
     margin: 0;
 }
 /************************  NAVBAR *************************/
-.container-navbar{
-    position: relative;
+header{
+    height: 220px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
     position: fixed;
-    top: 0;
-    left: 0;
+    top:0;
+}
+.container-navbar{
     width: 100%;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     z-index: 30;
@@ -75,7 +79,10 @@ div#btn-iniciar-sesion{
     color: #E9ECF3;
 }
 /************************  Contenedor  *************************/
-
+main{
+    margin-top: 240px;
+    text-align: center;
+}
 .container-form-registro, 
 .container-form-iniciar-sesion{
     position: fixed;
@@ -185,3 +192,41 @@ label.data-form-text{
     color: #229605;
     border: 1px solid #229605;
 }
+/* *****************  INICIO SESION ****************** */
+.inicio-oculto{
+   display: none;
+   position: absolute;
+   top: 10%;
+   left: 15%;
+   transform: translate(50%, 0%);
+   margin: 0 auto;
+}
+#datos-cliente-contenedor{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.informacion-cliente ul{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.informacion-cliente ul li{
+    display: flex;
+    width: 100%;
+    align-self: flex-start;
+    margin-bottom: 10px;    
+}
+/* tabla */
+#balance-cuenta table{
+    width: 100%;
+    border-collapse: collapse; margin: 25px 0; font-size: 1em; font-family: sans-serif; min-width: 450px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+}
+.balance-tabla thead tr { background-color: #980081; color: #ffffff; text-align: middle; }
+.balance-tabla  th, .balance-tabla td { padding: 12px 15px; }
+
+.balance-tabla tbody tr { border-bottom: 1px solid #dddddd; } 
+.balance-tabla tbody tr:nth-of-type(even) { background-color: #f3f3f3; } .styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }

@@ -4,7 +4,7 @@
 const btnRegistro = document.querySelector('#btn-abrir-cuenta');
 const formContainer = document.querySelector('.container-form-registro');
 const formulario = document.querySelector('#formulario-principal');
-const btnSalirForm = document.querySelector('img.icono-x');
+const btnSalirForm = document.querySelectorAll('img.icono-x');
 const idInput = document.getElementById('fid');
 const nombreInput = document.getElementById('fnombre');
 const apellidoInput = document.getElementById('fapellido');
@@ -14,6 +14,9 @@ const contrasenaInput = document.getElementById('fcontrasena');
 const iniciarSesionContainer = document.querySelector('.container-form-iniciar-sesion');
 const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
 const formularioIniciarSesion = document.querySelector('#formulario-principal-iniciar-sesion')
+const btnSalirCuenta = document.querySelector('#salir-sesion-cuenta')
+const uiCuenta = document.querySelector('.inicio-oculto')
+const navbar = document.querySelector('.container-navbar')
 // Simulador de credito
 const btnSimuladorCredito = document.querySelector('#simulador-credito a')
 
@@ -29,17 +32,16 @@ eventoslistener()
 function eventoslistener(){
     // ----- Evento al cargar la pagina, para que se llenen los datos -----
     document.addEventListener('DOMContentLoaded', (e) => {
+            //Cargar fecha
             maximaFechaInput();
+            //Dar clic en X para salir de cualquier formulario
+            salirDelFormulario()
         })
     btnRegistro.addEventListener('click', (e) => {
      formContainer.classList.add('form-registro-is-active');
     })
     btnIniciarSesion.addEventListener('click', (e) => {
         iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
-    })
-    btnSalirForm.addEventListener('click', (e)=>{
-     formContainer.classList.remove('form-registro-is-active');
-     iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active');
     })
     
     // ----- Evento para validar datos y resgistrar cuenta -----
@@ -50,10 +52,11 @@ function eventoslistener(){
     contrasenaInput.addEventListener('focusout', validarDatosInput);
     formulario.addEventListener('submit', validarFormulario);
     //-------- Eventos para iniciar sesion --------------------------
-    
     formularioIniciarSesion.addEventListener('submit', validarIniciosesion)
+    btnSalirCuenta.addEventListener('click', salirSesionCuenta)
     //-------- Eventos para simulador de credito --------------------------
     btnSimuladorCredito.addEventListener('click', simuladorCredito)
+
 }
 
 //********************************    CLASES    ******************************** /
@@ -70,6 +73,7 @@ class Cuenta{
         this.saldo = 0;
         this.transfereciaRealizada = 0;
         this.clave = clave;
+        this.movimientos = []
     }
     generarNumeroCuenta(){
         this.numeroCuenta = (Math.floor(Math.random() * 100000000)).toString();
@@ -135,34 +139,59 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
 
 }
 //! ---------- Iniciar sesion ----------------------------------------
-function validarIniciosesion(){
+function validarIniciosesion(e){
     e.preventDefault()
 
-    console.log('validando datos... ')
     const idInicioSesion = document.querySelector('#id').value
     const contrasenaInicioSesion = document.querySelector('#contrasena').value
-    console.log('Revisando cuentas', cuentasBancarias)
-    console.log('idInicioSesion', idInicioSesion)
-    console.log('contrasenaInicioSesion', contrasenaInicioSesion)
-    
-
+   
     const existeID = cuentasBancarias.find( cuenta => cuenta.id === idInicioSesion )
-    console.log('existe cuenta', existeID)
-    if(!existeID){
+
+    if(existeID){
+        const existeContrasena = existeID.clave === contrasenaInicioSesion
+        if(existeContrasena){
+            mostrarMensaje('Sesión iniciada correctamente')
+            setTimeout(() => {
+                iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active');
+                iniciarCuenta(existeID)
+            }, 3000);
+        }else{
+            mostrarMensaje('La contrasena ingresada es inválida.', 'error')
+            console.log('error clave')
+            return;
+        }
+    }else{
         mostrarMensaje('El ID ingresado es inválido.', 'error') 
-        return;       
+        return;   
     }
+}
+function iniciarCuenta(clienteObjeto){
+    
+    uiCuenta.style.display = 'block'
+    navbar.style.display = 'none'
 
-    const existeContrasena = existeID.clave === contrasenaInicioSesion
+    const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
+    const infoCliente = document.querySelector('.informacion-cliente')
 
-    if(!existeContrasena){
-        mostrarMensaje('La contrasena ingresada es inválida.', 'error')
-        console.log('error clave')
-        return;
-    }
-    console.log('inicio correcto')
-
-
+    const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
+    mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
+    infoCliente.innerHTML = `
+        <ul>
+            <li>
+                <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
+            </li>
+            <li>
+                <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
+            </li>
+            <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
+            <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
+            <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
+            <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
+        </ul>
+    `
+    cargarResumenMovimientos(movimientos)
+}
+function cargarResumenMovimientos(movimientosCuenta){
 
 }
 //! ---------- 3. Funcion Simulador de Credito -----------------------
@@ -197,7 +226,6 @@ function mostrarMensaje(mensaje, tipo){
 
     const divMensajes  = document.querySelectorAll('.mensaje-info')
     divMensajes.forEach( divMensaje => {
-        console.log('mensaje', divMensaje)
         if( tipo === 'error'){
             divMensaje.classList.add('error');
         }else{
@@ -210,4 +238,18 @@ function mostrarMensaje(mensaje, tipo){
         }, 3000); 
     })
     return;
+}
+function salirDelFormulario(){
+
+    for (let i = 0; i < btnSalirForm.length; i++) {
+
+        btnSalirForm[i].addEventListener('click', (e) => {
+            formContainer.classList.remove('form-registro-is-active');
+            iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active')
+        });
+    }
+}
+function salirSesionCuenta(){
+    uiCuenta.style.display = 'none'
+    navbar.style.display = 'block'
 }
