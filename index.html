@@ -9,27 +9,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-      <div class="container-navbar">
-        <a href="#home" id="logo"><img src="./img/logo-fintech.jpg"/></a>
-        <div class="navbar">
+
+      <nav id="container-navbar">
+        <a href="/" id="logo"><img src="./img/logo-fintech.jpg" alt="logo"/></a>
+        <div id="navbar">
           <ul>
-            <li> <a href="#incio"   class="navbar-item">Inicio</a></li>
-            <li id="simulador-credito"> <a href="#simulador_credito"   class="navbar-item">Simulador de Crédito</a></li>
-            <li> <a href="#nosotros" class="navbar-item">Conócenos</a></li>
+            <li> <a class="navbar-item">Servicios</a>
+              <ul>
+                <li><a href="/paginas/cuentas.html">Cuentas y Créditos</a></li>
+                <li><a href="">Simulador de Créditos</a></li>
+              </ul>
+            </li> <!-- Cuentas, creditos, simulador de credito -->
+            <li> <a href="/paginas/inversiones.html"   class="navbar-item">Inversiones</a></li> <!-- Inversiones(acciones, criptos) -->
+            <li> <a  class="navbar-item">Educación</a>
+              <ul>
+                <li><a href="/paginas/lista-cursos.html">Cursos</a></li>
+                <li><a href="">Asesorías</a></li>
+              </ul>
+            </li> 
           </ul>
           <div class="btn-navbar-botones">
-            <div class="btn-navbar" id="btn-abrir-cuenta"><a href="#abrir_cuenta" >Abre tu cuenta</a></div>
-            <div class="btn-navbar" id="btn-iniciar-sesion"><a href="#Iniciar sesión" >Iniciar sesión</a></div>
+            <div class="btn-navbar" id="btn-abrir-cuenta"><a href="/Elementos/modal-abre-cuenta.html">Abre tu cuenta</a></div>
+            <div class="btn-navbar" id="btn-iniciar-sesion"><a href="/Elementos/modal-iniciar-sesion.html">Iniciar sesión</a></div>
           </div>
         </div>
-      </div>
-    </header>
-    <main>
-      <div class="container">
+      </nav>
 
-        
-        <div class="container-form-registro">
+        <!-- <div class="container-form-registro">
           <div id="form-abrir-cuenta">
             <img src="./img/marca-x.png" class="icono-x" alt="icono-x"/>
             <h3 id="titulo-form-data">¡Empecemos! <br/><span>Ingresa tus datos</span></h3>
@@ -65,12 +71,11 @@
               <button type="submit" class="data-form-input"  id="btn-enviar-registro">Deseo mi cuenta</button>
             </form>
           </div>
-        </div>
+        </div> -->
 
-
-        <div class="container-form-iniciar-sesion">
+        <!-- <div class="container-form-iniciar-sesion">
           <div id="form-iniciar-sesion">
-            <img src="./img/marca-x.png" class="icono-x" alt="icono-x"/>
+            <img src="./img/marca-x.png" class="icono-y" alt="icono-y"/>
             <h3 id="titulo-form-iniciar-sesion">Iniciar sesión</h3>
             <div class="mensaje-info"></div>
             <form action="" id="formulario-principal-iniciar-sesion">
@@ -84,12 +89,12 @@
                 <label  for="contrasena" class="data-form-text">Ingrese contraseña</label>
                 <span class="form__line"></span>
               </div>
-              <button type="submit" class="data-form-input"  id="btn-submit-iniciar-sesion">Entrar</button>
+              <button type="submit" class="data-form-input"  id="btn-submit-iniciar-sesion"><a href="/paginas/inicio-sesion.html">Entrar</a></button>
             </form>
           </div>
-        </div>
+        </div> -->
         
-        <div id="pageiniciosesion" class="inicio-oculto">
+        <!-- <div id="pageiniciosesion" class="inicio-oculto">
           <button id="salir-sesion-cuenta">SALIR</button>
           <div id="datos-cliente-contenedor" >
             <h2  class="mensaje-bienvenida"></h2>
@@ -139,9 +144,30 @@
             </table>
             
           </div>
+        </div> -->
+        <main>
+          <div class="container">
+    
+          <iframe src="Elementos/carrousel.html" class="carousel-principal" style="border: none;"></iframe>
+          <h2>SOLUCIONES EN LÍNEA</h2>
+          <p>Registrate para acceder a todos nuestros servicios.</p>
+          <iframe src="/Elementos/tarjetas-informacion.html" class="tarjetas-informacion"></iframe>
+
+          <iframe src="/Elementos/seccion-educacion.html" class="seccion-educacion" frameborder="0"></iframe>
         </div>
+
       </div>
+
     </main>
+
+
+    <footer class="footer">
+      <div class="logo"></div>
+      <div class="informacion-footer">© Fintech 2022 Todos los derechos reservados.</div>
+    </footer>
+
+
     <script src="./script.js"></script>
+
 </body>
 </html>

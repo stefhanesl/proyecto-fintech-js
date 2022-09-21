@@ -1,15 +1,16 @@
-//********************************     VARIABLES  ******************************** /
-// ---------- Variables HTML ----------
+// ********************************     VARIABLES  ******************************** //
+// ------------------------------ Variables HTML --------------------
 // Elementos de registro
 const btnRegistro = document.querySelector('#btn-abrir-cuenta');
 const formContainer = document.querySelector('.container-form-registro');
 const formulario = document.querySelector('#formulario-principal');
-const btnSalirForm = document.querySelectorAll('img.icono-x');
-const idInput = document.getElementById('fid');
-const nombreInput = document.getElementById('fnombre');
-const apellidoInput = document.getElementById('fapellido');
-const nacimientoInput = document.getElementById('fnacimiento');
-const contrasenaInput = document.getElementById('fcontrasena');
+const btnSalirForm1 = document.querySelector('img.icono-x');
+const btnSalirForm2 = document.querySelector('img.icono-y');
+const idInput = document.querySelector('#fid');
+const nombreInput = document.querySelector('#fnombre');
+const apellidoInput = document.querySelector('#fapellido');
+const nacimientoInput = document.querySelector('#fnacimiento');
+const contrasenaInput = document.querySelector('#fcontrasena');
 // Elementos de Iniciar sesion
 const iniciarSesionContainer = document.querySelector('.container-form-iniciar-sesion');
 const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
@@ -34,14 +35,18 @@ function eventoslistener(){
     document.addEventListener('DOMContentLoaded', (e) => {
             //Cargar fecha
             maximaFechaInput();
-            //Dar clic en X para salir de cualquier formulario
-            salirDelFormulario()
         })
     btnRegistro.addEventListener('click', (e) => {
-     formContainer.classList.add('form-registro-is-active');
+        formContainer.classList.add('form-registro-is-active');
     })
     btnIniciarSesion.addEventListener('click', (e) => {
         iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
+    })
+    btnSalirForm1.addEventListener('click', (e) => {
+        formContainer.classList.remove('form-registro-is-active');
+       })
+    btnSalirForm2.addEventListener('click', (e) => {
+        iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active')
     })
     
     // ----- Evento para validar datos y resgistrar cuenta -----
@@ -124,7 +129,6 @@ function validarFormulario(e){
         mostrarMensaje('**Todos los campos son obligatorios', 'error');
         return;
     }
-
     formulario.reset();
     formContainer.classList.remove('form-registro-is-active');
     registrarCuenta(id, nombre, apellido, nacimiento, clave);
@@ -133,7 +137,7 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
    
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
     cuentasBancarias = [ ...cuentasBancarias, cliente];
-
+    console.log(cuentasBancarias)
     alert('Su cuenta ha sido creada exitosamente');
     console.table(cuentasBancarias);
 
@@ -238,16 +242,6 @@ function mostrarMensaje(mensaje, tipo){
         }, 3000); 
     })
     return;
-}
-function salirDelFormulario(){
-
-    for (let i = 0; i < btnSalirForm.length; i++) {
-
-        btnSalirForm[i].addEventListener('click', (e) => {
-            formContainer.classList.remove('form-registro-is-active');
-            iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active')
-        });
-    }
 }
 function salirSesionCuenta(){
     uiCuenta.style.display = 'none'

@@ -1,0 +1,139 @@
+
+.container .cards{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px ;
+}
+.card {
+    display: flex;
+    margin-bottom: 30px;
+    width: 100%; }
+    .card .card-icon-top {
+        width: 100%;
+      font-size: 4.5rem;
+      margin-top: 3rem; 
+      
+    }
+    .card .card-tags {
+      color: #035BA8;
+      display: inline-block;
+      font-weight: 700;
+      margin-bottom: 1rem; }
+      .card .card-tags:before {
+        content: "";
+        background-color: #035BA8;
+        width: 0.75em;
+        height: 0.75em;
+        border-radius: 100%;
+        display: inline-block;
+        margin-right: 0.5rem; }
+    .card .card-date {
+      display: inline-block;
+      padding-bottom: 1rem; }
+    .card .card-title {
+      color: #06243d;
+
+      display: block;
+      font-weight: 400;
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1.33333;
+      margin-bottom: 1rem; }
+      .card .card-title:last-child {
+        margin-bottom: 0; }
+    .card .card-label {
+      color: #06243d;
+      display: block;
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1.33333;
+      font-weight: 700; }
+    .card .card-body {
+      
+      padding: 2rem 2rem 2rem 2rem;
+      align-self: center;
+      width: 100%;
+      text-align: center;
+    }
+      .card .card-body .popover-wrapper.right {
+        position: absolute;
+        right: 0; }
+    .card .card-metadata {
+      min-width: 10rem; }
+    .card .card-footer {
+      border-top: none;
+      padding: 0 2rem 2rem 2rem;
+      background-color: inherit;
+      display: flex;
+      align-items: center; }
+      .card .card-footer .vfi {
+        color: #035BA8;
+        font-size: 2.5rem;
+        padding-left: 0.5rem; }
+    .card .vfi {
+      color: #035BA8; }
+    .card > a {
+      border-bottom: none;
+      color: #637381;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      text-decoration: none;
+    }
+/* hover styles for card */
+      .card > a:hover, .card > a:active {
+        color: #fff;
+        background: #035BA8;}
+        .card > a:hover .card-title,
+        .card > a:hover .card-icon-top,
+        .card > a:hover .card-footer .vfi,
+        .card > a:hover .card-tags,
+        .card > a:active .card-title,
+        .card > a:active .card-icon-top,
+        .card > a:active .card-footer .vfi,
+        .card > a:active .card-tags {
+          color: #fff; }
+        .card > a:hover .text-muted, .card > a:active .text-muted {
+          color: #fff !important; }
+        .card > a:hover .card-tags:before, .card > a:active .card-tags:before {
+          background-color: #fff; }
+  
+  /* hover style for card3 */
+  .card3 {
+    -webkit-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+  }
+  .card3:hover {
+    transform: scale(1.04);
+    border: 1px solid #035BA8;
+  }
+  .card3 > a:hover, .card3 > a:active {
+        color: inherit;
+        background: #fff;}
+        .card3 > a:hover .card-icon-top,
+        .card3 > a:hover .card-footer .vfi,
+        .card3 > a:hover .card-tags,
+        .card3 > a:active .card-icon-top,
+        .card3 > a:active .card-footer .vfi,
+        .card3 > a:active .card-tags {
+          color: inherit; }
+  .card3 > a:hover .card-title,
+  .card3 > a:active .card-title {
+    color: #212529;
+  }
+  .card3 > a .card-icon-top,
+  .card3 > a .card-icon-top {
+    -webkit-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+  }
+  .card3 > a:hover .card-icon-top,
+  .card3 > a:active .card-icon-top {
+    transform: scale(1.4);
+  }
+        .card3 > a:hover .text-muted, .card3 > a:active .text-muted {
+          color: #fff !important; }
+        .card3 > a:hover .card-tags:before, .card3 > a:active .card-tags:before {
+          background-color: #fff; }
+ /* end card3 */
+  
