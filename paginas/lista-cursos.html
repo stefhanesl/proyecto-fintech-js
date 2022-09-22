@@ -13,8 +13,31 @@
   <nav id="container-navbar">
     <div class="navbar-top">
       <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
-      <a id="carrito-contenedor"><div><i class="fa fa-shopping-cart" style="font-size:48px;color:#0F265C"></i>
-        <br></div></a>
+      <div id="carrito-contenedor">
+        <i class="fa fa-shopping-cart" id="icono-carrito-menu" style="font-size:48px;color:#0F265C"></i>
+        <div id="carrito">
+          <table id="lista-cursos-carrito" >
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th></th>
+                <th></th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+
+            </tbody>
+          </table>
+          <h5>El total de su compra es: <span></span> </h5>
+          <a id="vaciar-carrito-ventana">Vaciar Carrito</a>
+        </div>
+      </div>
     </div>
     <div id="navbar">
       <ul>
@@ -37,8 +60,9 @@
         <div class="btn-navbar" id="btn-iniciar-sesion"><a href="/Elementos/modal-iniciar-sesion.html">Iniciar sesión</a></div>
       </div>
     </div>
-    
   </nav>
+
+
     <main>
       <div id="buscador">
         <link rel="stylesheet">
@@ -52,84 +76,93 @@
             </div>
           </div>
       </div>
-      <div class="cards-list">
+
+
+      <div id="cursos-fintech">
+
+      </div>
+
+      <!-- <div class="cards-list">
           <div class="card">
               <div class="imgBox">
-                <img src="/img/3112677.jpg" alt="mouse corsair" class="mouse">
+                <img src="/img/3112677.jpg" alt="curso corsair" class="curso">
               </div>
       
               <div class="contentBox">
                 <h3>Mercado de Valores y Banca</h3>
                 <h2 class="price">$40.<small>00</small></h2>
-                <a href="#" class="buy">Buy Now</a>
+                <a href="#" class="buy">Agregar al carrito</a>
               </div>
       
             </div>
             <div class="card">
       
               <div class="imgBox">
-                <img src="/img/6428425.jpg" alt="mouse corsair" class="mouse">
+                <img src="/img/6428425.jpg" alt="curso corsair" class="curso">
               </div>
       
               <div class="contentBox">
                 <h3>Gestión del dinero y finanzas para creativos</h3>
                 <h2 class="price">$89.<small>99</small></h2>
-                <a href="#" class="buy">Buy Now</a>
+                <a href="#" class="buy">Agregar al carrito</a>
               </div>
       
             </div>
             <div class="card">
       
               <div class="imgBox">
-                <img src="/img/revenue-growth-money-in-a-flat-design-free-vector.jpg" alt="mouse corsair" class="mouse">
+                <img src="/img/revenue-growth-money-in-a-flat-design-free-vector.jpg" alt="curso corsair" class="curso">
               </div>
       
               <div class="contentBox">
                 <h3>Finanzas para no financieros</h3>
                 <h2 class="price">$55.<small>95</small></h2>
-                <a href="#" class="buy">Buy Now</a>
+                <a href="#" class="buy">Agregar al carrito</a>
               </div>
       
             </div>
             <div class="card">
               <div class="imgBox">
-                <img src="/img/Startup managers presenting and analyzing sales growth chart.jpg" alt="mouse corsair" class="mouse">
+                <img src="/img/Startup managers presenting and analyzing sales growth chart.jpg" alt="curso corsair" class="curso">
               </div>
       
               <div class="contentBox">
                 <h3>Contabilidad para el hogar</h3>
                 <h2 class="price">$29.<small>98</small></h2>
-                <a href="#" class="buy">Buy Now</a>
+                <a href="#" class="buy">Agregar al carrito</a>
               </div>
       
             </div>
             <div class="card">
       
               <div class="imgBox">
-                <img src="/img/BitCoin-icons.jpg" alt="mouse corsair" class="mouse">
+                <img src="/img/BitCoin-icons.jpg" alt="curso corsair" class="curso">
               </div>
       
               <div class="contentBox">
                 <h3>Invertir en Criptos</h3>
                 <h2 class="price">$44.<small>98</small></h2>
-                <a href="#" class="buy">Buy Now</a>
+                <a href="#" class="buy">Agregar al carrito</a>
               </div>
       
             </div>
             <div class="card">
       
               <div class="imgBox">
-                <img src="/img/ilustracion-concepto-ahorros_114360-1516.jpg" alt="mouse corsair" class="mouse">
+                <img src="/img/ilustracion-concepto-ahorros_114360-1516.jpg" alt="curso corsair" class="curso">
               </div>
       
               <div class="contentBox">
                 <h3>Finanzas Personales</h3>
                 <h2 class="price">$30.<small>99</small> </h2>
-                <a href="#" class="buy">Buy Now</a>
+                <a href="#" class="buy">Agregar al carrito</a>
               </div>
       
-            </div>
+            </div> -->
       </div>
     </main>
+    <script src="/Datos/BaseCursos.js"></script>
+    <script src="/js/lista-cursos.js"></script>
+
 </body>
 </html>
