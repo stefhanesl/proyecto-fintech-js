@@ -16,10 +16,9 @@ const iniciarSesionContainer = document.querySelector('.container-form-iniciar-s
 const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
 const formularioIniciarSesion = document.querySelector('#formulario-principal-iniciar-sesion')
 const btnSalirCuenta = document.querySelector('#salir-sesion-cuenta')
-const uiCuenta = document.querySelector('.inicio-oculto')
-const navbar = document.querySelector('.container-navbar')
+
 // Simulador de credito
-const btnSimuladorCredito = document.querySelector('#simulador-credito a')
+// const btnSimuladorCredito = document.querySelector('#simulador-credito a')
 
 
 // ----- Variables  -----
@@ -34,12 +33,13 @@ function eventoslistener(){
     // ----- Evento al cargar la pagina, para que se llenen los datos -----
     document.addEventListener('DOMContentLoaded', (e) => {
             //Cargar fecha
-            maximaFechaInput();
+            // maximaFechaInput();
         })
     btnRegistro.addEventListener('click', (e) => {
         formContainer.classList.add('form-registro-is-active');
     })
     btnIniciarSesion.addEventListener('click', (e) => {
+        console.log('presione en iniciar')
         iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
     })
     btnSalirForm1.addEventListener('click', (e) => {
@@ -57,10 +57,13 @@ function eventoslistener(){
     contrasenaInput.addEventListener('focusout', validarDatosInput);
     formulario.addEventListener('submit', validarFormulario);
     //-------- Eventos para iniciar sesion --------------------------
-    formularioIniciarSesion.addEventListener('submit', validarIniciosesion)
-    btnSalirCuenta.addEventListener('click', salirSesionCuenta)
+    formularioIniciarSesion.addEventListener('submit', e =>{
+        console.log('formulario enviado')
+        validarIniciosesion()
+    })
+
     //-------- Eventos para simulador de credito --------------------------
-    btnSimuladorCredito.addEventListener('click', simuladorCredito)
+    // btnSimuladorCredito.addEventListener('click', simuladorCredito)
 
 }
 
@@ -132,31 +135,35 @@ function validarFormulario(e){
     formulario.reset();
     formContainer.classList.remove('form-registro-is-active');
     registrarCuenta(id, nombre, apellido, nacimiento, clave);
+    
 }
 function registrarCuenta(id, nombre, apellido, nacimiento, clave){
    
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
     cuentasBancarias = [ ...cuentasBancarias, cliente];
-    console.log(cuentasBancarias)
+    window.localStorage.setItem( 'cuentas', JSON.stringify(cliente))
+
     alert('Su cuenta ha sido creada exitosamente');
     console.table(cuentasBancarias);
-
+    
 }
 //! ---------- Iniciar sesion ----------------------------------------
 function validarIniciosesion(e){
     e.preventDefault()
-
+    
     const idInicioSesion = document.querySelector('#id').value
     const contrasenaInicioSesion = document.querySelector('#contrasena').value
    
-    const existeID = cuentasBancarias.find( cuenta => cuenta.id === idInicioSesion )
+    cuentasBancarias = JSON.parse( localStorage.getItem('cuentas') )
 
+    const existeID = cuentasBancarias.find( cuenta => cuenta.id === idInicioSesion )
+    console.log('cliente ingresa', existeID)
     if(existeID){
         const existeContrasena = existeID.clave === contrasenaInicioSesion
         if(existeContrasena){
             mostrarMensaje('Sesión iniciada correctamente')
             setTimeout(() => {
-                iniciarSesionContainer.classList.remove('form-iniciar-sesion-is-active');
+                console.log('inciando...')
                 iniciarCuenta(existeID)
             }, 3000);
         }else{
@@ -169,35 +176,34 @@ function validarIniciosesion(e){
         return;   
     }
 }
-function iniciarCuenta(clienteObjeto){
+// function iniciarCuenta(clienteObjeto){
     
-    uiCuenta.style.display = 'block'
-    navbar.style.display = 'none'
 
-    const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
-    const infoCliente = document.querySelector('.informacion-cliente')
 
-    const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
-    mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
-    infoCliente.innerHTML = `
-        <ul>
-            <li>
-                <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
-            </li>
-            <li>
-                <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
-            </li>
-            <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
-            <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
-            <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
-            <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
-        </ul>
-    `
-    cargarResumenMovimientos(movimientos)
-}
-function cargarResumenMovimientos(movimientosCuenta){
+//     const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
+//     const infoCliente = document.querySelector('.informacion-cliente')
 
-}
+//     const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
+//     mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
+//     infoCliente.innerHTML = `
+//         <ul>
+//             <li>
+//                 <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
+//             </li>
+//             <li>
+//                 <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
+//             </li>
+//             <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
+//             <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
+//             <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
+//             <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
+//         </ul>
+//     `
+//     cargarResumenMovimientos(movimientos)
+// }
+// function cargarResumenMovimientos(movimientosCuenta){
+
+// }
 //! ---------- 3. Funcion Simulador de Credito -----------------------
 function simuladorCredito(){
     let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);

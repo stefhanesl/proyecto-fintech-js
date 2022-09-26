@@ -9,72 +9,70 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
-<body>
-  <nav id="container-navbar">
-    <div class="navbar-top">
-      <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
-      <div id="carrito-contenedor">
-        <i class="fa fa-shopping-cart" id="icono-carrito-menu" style="font-size:48px;color:#0F265C"></i>
-        <div id="carrito">
-          <table id="lista-cursos-carrito" >
-            <thead>
-              <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th></th>
-                <th></th>
+  <body>
+    <nav id="container-navbar">
+      <div class="navbar-top">
+        <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
+        <div id="carrito-contenedor">
+          <div class="cantidad-cursos"></div>
+          <i class="fa fa-shopping-cart" id="icono-carrito-menu" style="font-size:48px;color:#0F265C"></i>
+          <div id="carrito">
+            <table id="lista-cursos-carrito" >
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                  <th></th>
+                  <th></th>
 
-              </tr>
-            </thead>
-            <tbody>
+                </tr>
+              </thead>
+              <tbody>
 
 
-            </tbody>
-          </table>
-          <h5>El total de su compra es: <span></span> </h5>
-          <a id="vaciar-carrito-ventana">Vaciar Carrito</a>
+              </tbody>
+            </table>
+            <!-- <h5>El total de su compra es: <span total-tabla="total"></span> </h5> -->
+            <a id="vaciar-carrito-ventana">Vaciar Carrito</a>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="navbar">
-      <ul>
-        <li> <a class="navbar-item">Servicios</a>
-          <ul>
-            <li><a href="/paginas/cuentas.html">Cuentas y Créditos</a></li>
-            <li><a href="">Simulador de Créditos</a></li>
-          </ul>
-        </li> <!-- Cuentas, creditos, simulador de credito -->
-        <li> <a href="/paginas/inversiones.html"   class="navbar-item">Inversiones</a></li> <!-- Inversiones(acciones, criptos) -->
-        <li> <a  class="navbar-item">Educación</a>
-          <ul>
-            <li><a href="/paginas/lista-cursos.html">Cursos</a></li>
-            <li><a href="">Asesorías</a></li>
-          </ul>
-        </li> 
-      </ul>
-      <div class="btn-navbar-botones">
-        <div class="btn-navbar" id="btn-abrir-cuenta"><a href="/Elementos/modal-abre-cuenta.html">Abre tu cuenta</a></div>
-        <div class="btn-navbar" id="btn-iniciar-sesion"><a href="/Elementos/modal-iniciar-sesion.html">Iniciar sesión</a></div>
+      <div id="navbar">
+        <ul>
+          <li> <a class="navbar-item">Servicios</a>
+            <ul>
+              <li><a href="/paginas/cuentas.html">Cuentas y Créditos</a></li>
+              <li><a href="">Simulador de Créditos</a></li>
+            </ul>
+          </li> <!-- Cuentas, creditos, simulador de credito -->
+          <li> <a href="/paginas/inversiones.html"   class="navbar-item">Inversiones</a></li> <!-- Inversiones(acciones, criptos) -->
+          <li> <a  class="navbar-item">Educación</a>
+            <ul>
+              <li><a href="/paginas/lista-cursos.html">Cursos</a></li>
+              <li><a href="">Asesorías</a></li>
+            </ul>
+          </li> 
+        </ul>
+        <div class="btn-navbar-botones">
+          <div class="btn-navbar" id="btn-abrir-cuenta"><a href="/Elementos/modal-abre-cuenta.html">Abre tu cuenta</a></div>
+          <div class="btn-navbar" id="btn-iniciar-sesion"><a href="/Elementos/modal-iniciar-sesion.html">Iniciar sesión</a></div>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
 
     <main>
-      <div id="buscador">
-        <link rel="stylesheet">
-          <div class="wrapper">
-            <div class="searchBar">
-              <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Busca el curso que necesitas" value="" />
-              <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
-                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" >
-                </svg>
-              </button>
-            </div>
-          </div>
+      <div class="main-top">
+          <div id="buscador">
+            <input id="buscador-input" type="text" name="searchQueryInput" placeholder="Busca el curso que necesitas" value="" />
+            <button id="buscador-icono" type="submit" name="searchQuerySubmit">
+              <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
+              </svg>
+            </button>
+        </div>
       </div>
 
 
@@ -82,87 +80,10 @@
 
       </div>
 
-      <!-- <div class="cards-list">
-          <div class="card">
-              <div class="imgBox">
-                <img src="/img/3112677.jpg" alt="curso corsair" class="curso">
-              </div>
-      
-              <div class="contentBox">
-                <h3>Mercado de Valores y Banca</h3>
-                <h2 class="price">$40.<small>00</small></h2>
-                <a href="#" class="buy">Agregar al carrito</a>
-              </div>
-      
-            </div>
-            <div class="card">
-      
-              <div class="imgBox">
-                <img src="/img/6428425.jpg" alt="curso corsair" class="curso">
-              </div>
-      
-              <div class="contentBox">
-                <h3>Gestión del dinero y finanzas para creativos</h3>
-                <h2 class="price">$89.<small>99</small></h2>
-                <a href="#" class="buy">Agregar al carrito</a>
-              </div>
-      
-            </div>
-            <div class="card">
-      
-              <div class="imgBox">
-                <img src="/img/revenue-growth-money-in-a-flat-design-free-vector.jpg" alt="curso corsair" class="curso">
-              </div>
-      
-              <div class="contentBox">
-                <h3>Finanzas para no financieros</h3>
-                <h2 class="price">$55.<small>95</small></h2>
-                <a href="#" class="buy">Agregar al carrito</a>
-              </div>
-      
-            </div>
-            <div class="card">
-              <div class="imgBox">
-                <img src="/img/Startup managers presenting and analyzing sales growth chart.jpg" alt="curso corsair" class="curso">
-              </div>
-      
-              <div class="contentBox">
-                <h3>Contabilidad para el hogar</h3>
-                <h2 class="price">$29.<small>98</small></h2>
-                <a href="#" class="buy">Agregar al carrito</a>
-              </div>
-      
-            </div>
-            <div class="card">
-      
-              <div class="imgBox">
-                <img src="/img/BitCoin-icons.jpg" alt="curso corsair" class="curso">
-              </div>
-      
-              <div class="contentBox">
-                <h3>Invertir en Criptos</h3>
-                <h2 class="price">$44.<small>98</small></h2>
-                <a href="#" class="buy">Agregar al carrito</a>
-              </div>
-      
-            </div>
-            <div class="card">
-      
-              <div class="imgBox">
-                <img src="/img/ilustracion-concepto-ahorros_114360-1516.jpg" alt="curso corsair" class="curso">
-              </div>
-      
-              <div class="contentBox">
-                <h3>Finanzas Personales</h3>
-                <h2 class="price">$30.<small>99</small> </h2>
-                <a href="#" class="buy">Agregar al carrito</a>
-              </div>
-      
-            </div> -->
       </div>
     </main>
     <script src="/Datos/BaseCursos.js"></script>
     <script src="/js/lista-cursos.js"></script>
 
-</body>
+  </body>
 </html>

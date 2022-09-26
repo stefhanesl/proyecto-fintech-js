@@ -3,8 +3,12 @@ const cursosFintech = document.querySelector('#cursos-fintech');
 const listaCursosCarrito =  document.querySelector('#lista-cursos-carrito tbody')
 const carrito = document.querySelector('#carrito')
 const btnVaciarCar = document.querySelector('#vaciar-carrito-ventana')
+const cantidadDeCursosCarrito =  document.querySelector('.cantidad-cursos')
+const buscadorPalabraInput = document.querySelector('#buscador-input')
+const agregarTotalTablaCarrito = document.querySelector('span[total-tabla="total"]')
 let cursosSeleccionados = []
 
+console.log('hola')
 
 //Eventos
 escuchadorEventos()
@@ -16,11 +20,12 @@ function escuchadorEventos(){
     cursosFintech.addEventListener('click', adicionarParaCarrito)
     carrito.addEventListener('click', eliminarCarrito )
     btnVaciarCar.addEventListener('click', vaciarCarrito)
+    buscadorPalabraInput.addEventListener('input', buscarCursos)
 }
 
 //funciones
 function cargarCursos(cursosf){
-
+    limpiarHtml()
     cursosf.forEach( curso => {
 
         const { id, nombre, precio, imagenUrl } = curso;
@@ -60,9 +65,21 @@ function adicionarParaCarrito(e){
             id: course.querySelector('a').getAttribute('data-id'),
             cantidad: 1
         }
-        cursosSeleccionados = [...cursosSeleccionados, cursoObjeto]
-        
+        const cursoExiste = cursosSeleccionados.some( curso => curso.id === cursoObjeto.id )
+        if( cursoExiste ){
+            const cursosAdicionados = cursosSeleccionados.map( curso => {
+                if( curso.id === cursoObjeto.id ){
+                    curso.cantidad += 1;
+                    return curso;
+                }else{
+                    return curso;
+                }
+            cursosSeleccionados = [...cursosAdicionados]
+        })}else{
+            cursosSeleccionados = [...cursosSeleccionados, cursoObjeto]
+        }
     }
+    contadorCursosTotales()
     agregarCursoALaTablaCarrito()
 }
 function agregarCursoALaTablaCarrito(){
@@ -84,11 +101,11 @@ function agregarCursoALaTablaCarrito(){
             <td>${cantidad}</td>
             <td>$${prec*cantidad}</td>
             <td><a href='#' data-id=${id} class='eliminar-curso'>✖️</a></td>
-            
         `
+        console.log('mmm')
         listaCursosCarrito.appendChild(fila)
-
     })
+    contadorCursosTotales()
     guardarLocalStorage(cursosSeleccionados)
 }
 function guardarLocalStorage(cursosAgregados){
@@ -103,10 +120,44 @@ function eliminarCarrito(e){
     if(e.target.classList.contains('eliminar-curso')){
         const idElement = e.target.getAttribute('data-id')
         cursosSeleccionados =  cursosSeleccionados.filter( curso => curso.id !== idElement)
+        contadorCursosTotales()
         agregarCursoALaTablaCarrito()
     }
 }
 function vaciarCarrito(){
     cursosSeleccionados = []
+    contadorCursosTotales()
     agregarCursoALaTablaCarrito()
+}
+function contadorCursosTotales(){
+    //!--------------------------------
+    // agregarTotalTablaCarrito.removeChild()
+    //!--------------------------------
+
+
+    const cuentaCantidadTotalCursos = cursosSeleccionados.reduce( (total, curso) => total + curso.cantidad , 0)
+
+    if(cuentaCantidadTotalCursos > 0){
+        cantidadDeCursosCarrito.classList.add('cantidad-num')
+        cantidadDeCursosCarrito.textContent = cuentaCantidadTotalCursos
+    }else{
+        cantidadDeCursosCarrito.classList.remove('cantidad-num')
+        cantidadDeCursosCarrito.textContent = ''
+    }
+    //!--------------------------------
+    //Sumar el total del monto comprado
+    // const totalTablaCarrito = cursosSeleccionados.reduce((total, curso) => total + (parseFloat(curso.precio.substring(1)) * curso.cantidad) , 0)
+    // agregarTotalTablaCarrito.appendChild(
+    //     document.createTextNode(`$${totalTablaCarrito}`)
+    //   )
+    // console.log(totalTablaCarrito)
+    // console.log(agregarTotalTablaCarrito)
+    // agregarTotalTablaCarrito.textContent = (totalTablaCarrito).toFixed(2)
+    //!--------------------------------
+
+}
+function buscarCursos(e){
+    const palabra = e.target.value
+   const cursosBuscadosArray = cursos.filter( curso => curso.nombre.toLowerCase().indexOf( palabra.toLowerCase()) !== -1)
+   cargarCursos(cursosBuscadosArray)
 }
