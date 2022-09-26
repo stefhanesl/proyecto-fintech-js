@@ -114,6 +114,7 @@ div.btn-navbar-botones{
     font-weight: 600;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     margin-right: 15px;
+    cursor: pointer;
 }
 .btn-navbar a{
     display: inline-block;
@@ -360,7 +361,7 @@ label.data-form-text{
     border: 1px solid #229605;
 }
 /* *****************  INICIO SESION ****************** */
-.inicio-oculto{
+/* .inicio-oculto{
 
    position: absolute;
    top: 10%;
@@ -386,7 +387,7 @@ label.data-form-text{
     align-self: flex-start;
     margin-bottom: 10px;    
 }
-/* tabla */
+
 #balance-cuenta table{
     width: 100%;
     border-collapse: collapse; margin: 25px 0; font-size: 1em; font-family: sans-serif; min-width: 450px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -396,7 +397,7 @@ label.data-form-text{
 .balance-tabla  th, .balance-tabla td { padding: 12px 15px; }
 
 .balance-tabla tbody tr { border-bottom: 1px solid #dddddd; } 
-.balance-tabla tbody tr:nth-of-type(even) { background-color: #f3f3f3; } .styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }
+.balance-tabla tbody tr:nth-of-type(even) { background-color: #f3f3f3; } .styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; } */
 /*********************************************************/
 .contenedor-body-principal{
     width: 100%;

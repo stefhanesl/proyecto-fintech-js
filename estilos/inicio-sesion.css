@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#logo img{
+    width: 150px;
+}
+#container-navbar{
+    position: relative;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    z-index: 10;
+    height: 160px;
+}
+#container-navbar ul{
+    list-style: none;
+    float: left;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+#container-navbar ul li{
+    position: relative;
+    width:150px; 
+    float: left;
+    margin:0;
+	padding:0
+}
+#container-navbar li a{
+    display: block;
+    text-decoration:none;
+	font-weight:600;
+	font-size: 19px;
+	line-height:32px;
+	padding:0 15px;
+    color: #035BA8;
+}
+#container-navbar li a:hover{
+    text-decoration: underline;
+    font-weight: 800;
+}
+main{
+    position: relative;
+    margin-top: 160px;
+    text-align: center;
+}
+div.btn-navbar-botones{
+    margin-right: 70px;
+    float: right;
+}
+.btn-navbar{
+    display: inline-block;
+    background-color: #0F265C;
+    padding: 11px 30px;
+    border-radius: 5px;
+    padding: 10px 25px;
+    text-align: center;;
+    font-size: 20px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    margin-right: 15px;
+}
+.btn-navbar a{
+    text-decoration: none;
+    color: #E9ECF3;
+}
+.btn-navbar:hover, .btn-navbar a:hover{
+    opacity: 0.65;
+}
+
+
+.inicio-oculto{
+
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    transform: translate(50%, 0%);
+    margin: 0 auto;
+ }
+ #datos-cliente-contenedor{
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 20px;
+ }
+ .informacion-cliente ul{
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+ }
+ .informacion-cliente ul li{
+     display: flex;
+     width: 100%;
+     align-self: flex-start;
+     margin-bottom: 10px;    
+ }
+ /* tabla */
+ #balance-cuenta table{
+     width: 100%;
+     border-collapse: collapse; margin: 25px 0; font-size: 1em; font-family: sans-serif; min-width: 450px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+ 
+ }
+ .balance-tabla thead tr { background-color: #980081; color: #ffffff; text-align: middle; }
+ .balance-tabla  th, .balance-tabla td { padding: 12px 15px; }
+ 
+ .balance-tabla tbody tr { border-bottom: 1px solid #dddddd; } 
+ .balance-tabla tbody tr:nth-of-type(even) { background-color: #f3f3f3; } .styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }

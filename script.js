@@ -1,3 +1,4 @@
+import {inicioValidado} from "./js/inicio-sesion"
 // ********************************     VARIABLES  ******************************** //
 // ------------------------------ Variables HTML --------------------
 // Elementos de registro
@@ -25,21 +26,22 @@ const btnSalirCuenta = document.querySelector('#salir-sesion-cuenta')
 let cliente;
 let numCuentasBancarias = [];
 let cuentasBancarias = [];
+const cuentas = JSON.parse(localStorage.getItem('cuentas')) || []
 
 //********************************  EVENTOS   ******************************** /
 
-eventoslistener()
-function eventoslistener(){
-    // ----- Evento al cargar la pagina, para que se llenen los datos -----
-    document.addEventListener('DOMContentLoaded', (e) => {
-            //Cargar fecha
-            // maximaFechaInput();
-        })
+// eventoslistener()
+// function eventoslistener(){
+//     // ----- Evento al cargar la pagina, para que se llenen los datos -----
+//     // document.addEventListener('DOMContentLoaded', (e) => {
+//     //         //Cargar fecha
+//     //         // maximaFechaInput();
+//     //     })
     btnRegistro.addEventListener('click', (e) => {
         formContainer.classList.add('form-registro-is-active');
     })
     btnIniciarSesion.addEventListener('click', (e) => {
-        console.log('presione en iniciar')
+        e.preventDefault()
         iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
     })
     btnSalirForm1.addEventListener('click', (e) => {
@@ -57,15 +59,15 @@ function eventoslistener(){
     contrasenaInput.addEventListener('focusout', validarDatosInput);
     formulario.addEventListener('submit', validarFormulario);
     //-------- Eventos para iniciar sesion --------------------------
-    formularioIniciarSesion.addEventListener('submit', e =>{
-        console.log('formulario enviado')
+    formularioIniciarSesion.addEventListener('submit', (e) => {
+        e.preventDefault()
         validarIniciosesion()
     })
 
     //-------- Eventos para simulador de credito --------------------------
     // btnSimuladorCredito.addEventListener('click', simuladorCredito)
 
-}
+// }
 
 //********************************    CLASES    ******************************** /
 
@@ -132,16 +134,18 @@ function validarFormulario(e){
         mostrarMensaje('**Todos los campos son obligatorios', 'error');
         return;
     }
-    formulario.reset();
     formContainer.classList.remove('form-registro-is-active');
     registrarCuenta(id, nombre, apellido, nacimiento, clave);
+    formulario.reset();
     
 }
 function registrarCuenta(id, nombre, apellido, nacimiento, clave){
    
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
     cuentasBancarias = [ ...cuentasBancarias, cliente];
-    window.localStorage.setItem( 'cuentas', JSON.stringify(cliente))
+    console.log('guardando cliente en LS')
+    const datosClientes = JSON.stringify([...cuentas, cliente]);
+    localStorage.setItem('cuentas', datosClientes)
 
     alert('Su cuenta ha sido creada exitosamente');
     console.table(cuentasBancarias);
@@ -149,32 +153,48 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
 }
 //! ---------- Iniciar sesion ----------------------------------------
 function validarIniciosesion(e){
-    e.preventDefault()
-    
+  
+    console.log('recien validando sesion...')
+
     const idInicioSesion = document.querySelector('#id').value
     const contrasenaInicioSesion = document.querySelector('#contrasena').value
-   
-    cuentasBancarias = JSON.parse( localStorage.getItem('cuentas') )
 
-    const existeID = cuentasBancarias.find( cuenta => cuenta.id === idInicioSesion )
-    console.log('cliente ingresa', existeID)
-    if(existeID){
-        const existeContrasena = existeID.clave === contrasenaInicioSesion
-        if(existeContrasena){
-            mostrarMensaje('Sesión iniciada correctamente')
-            setTimeout(() => {
-                console.log('inciando...')
-                iniciarCuenta(existeID)
-            }, 3000);
-        }else{
-            mostrarMensaje('La contrasena ingresada es inválida.', 'error')
-            console.log('error clave')
-            return;
-        }
-    }else{
-        mostrarMensaje('El ID ingresado es inválido.', 'error') 
-        return;   
+    let contador = 0
+
+    if(idInicioSesion === '' || contrasenaInicioSesion === ''){
+        mostrarMensaje('Llene todos los campos.', 'error')
+        return;
     }
+
+    while (contador < 3 ){
+        
+        const existeID = cuentas.find( cuenta => cuenta.id === idInicioSesion )
+        console.log('cliente ingresa', existeID)
+        if(existeID){
+            const existeContrasena = existeID.clave === contrasenaInicioSesion
+            if(existeContrasena){
+                formularioIniciarSesion.reset()
+                mostrarMensaje('Sesión iniciada correctamente')
+                setTimeout(() => {
+                    console.log('inciando sesion...')
+                    
+                    window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
+                    inicioValidado(true)
+                    window.location = "/paginas/inicio-sesion.html"
+
+                }, 3000);
+            }else{
+                mostrarMensaje('La contrasena ingresada es inválida.', 'error')
+                console.log('error clave')
+                return;
+            }
+        }else{
+            mostrarMensaje('El ID ingresado es inválido.', 'error') 
+            return;   
+        }
+        contador++;
+    }
+    inicioValidado(false)
 }
 // function iniciarCuenta(clienteObjeto){
     

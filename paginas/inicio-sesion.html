@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../estilos/inicio-sesion.css">
 
 </head>
 <body>
     <nav>
-      <div class="container-navbar">
+      <div id="container-navbar">
         <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
         <div class="navbar">
           <ul>
@@ -20,19 +20,25 @@
             <li> <a href="/paginas/carrito-contenedor.html"   class="navbar-item">Carrito</a></li> <!-- Lista de Cursos, Asesorias -->
           </ul>
           <div class="btn-navbar-botones">
-            <div class="btn-navbar" id="btn-abrir-cuenta"><a href="/Elementos/modal-abre-cuenta.html">persona</a></div>
+            <div class="btn-navbar" id="btn-salir-sesion"><a href="../index.html">Salir</a></div>
           </div>
         </div>
       </div>
     </nav>
 
-    <div id="pageiniciosesion" class="inicio-oculto">
+    <main>
+      <div id="pageiniciosesion" class="inicio-oculto">
         
         <div id="datos-cliente-contenedor" >
           <h2  class="mensaje-bienvenida"></h2>
           <div class="informacion-cliente">
+           
           </div>
         </div>
+
+            
+
+
 
         
         <div id="balance-cuenta" class="">
@@ -49,7 +55,6 @@
               <th>Monto</th>
 
               <th>Saldo</th>
-
           
             </tr>
           
@@ -71,9 +76,9 @@
           
         </div>
     </div>
+    </main>
     <script src="../script.js"></script>
-
-    <script src="../js/inicio-sesion.js"></script>
+    <script src="../js/inicio-sesion.js" type="module"> </script>
 
 </body>
 </html>

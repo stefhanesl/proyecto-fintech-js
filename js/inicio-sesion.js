@@ -3,11 +3,20 @@
 // btnIniciarSesion.addEventListener('click', (e) => {
 //     iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
 // })
+export default function inicioValidado(condicion){
+    if(true){
+        const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
+        iniciarCuenta(datosCliente)
+        console.log('validando sesion1')
+        return;
+    }
+    return alert('Numero máximo de intentos.')
+}
 
-function iniciarCuenta(clienteObjeto){
-    console.log('inici-sesion')
+export function iniciarCuenta(clienteObjeto){
 
     const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
+
     const infoCliente = document.querySelector('.informacion-cliente')
 
     const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
