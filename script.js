@@ -1,4 +1,3 @@
-import {inicioValidado} from "./js/inicio-sesion"
 // ********************************     VARIABLES  ******************************** //
 // ------------------------------ Variables HTML --------------------
 // Elementos de registro
@@ -143,19 +142,17 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
    
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
     cuentasBancarias = [ ...cuentasBancarias, cliente];
-    console.log('guardando cliente en LS')
+
     const datosClientes = JSON.stringify([...cuentas, cliente]);
     localStorage.setItem('cuentas', datosClientes)
 
     alert('Su cuenta ha sido creada exitosamente');
-    console.table(cuentasBancarias);
     
 }
 //! ---------- Iniciar sesion ----------------------------------------
+let existeID;
 function validarIniciosesion(e){
   
-    console.log('recien validando sesion...')
-
     const idInicioSesion = document.querySelector('#id').value
     const contrasenaInicioSesion = document.querySelector('#contrasena').value
 
@@ -168,24 +165,16 @@ function validarIniciosesion(e){
 
     while (contador < 3 ){
         
-        const existeID = cuentas.find( cuenta => cuenta.id === idInicioSesion )
-        console.log('cliente ingresa', existeID)
+        existeID = cuentas.find( cuenta => cuenta.id === idInicioSesion )
         if(existeID){
             const existeContrasena = existeID.clave === contrasenaInicioSesion
             if(existeContrasena){
                 formularioIniciarSesion.reset()
                 mostrarMensaje('Sesión iniciada correctamente')
-                setTimeout(() => {
-                    console.log('inciando sesion...')
-                    
-                    window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
-                    inicioValidado(true)
-                    window.location = "/paginas/inicio-sesion.html"
-
-                }, 3000);
+                window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
+                window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
             }else{
                 mostrarMensaje('La contrasena ingresada es inválida.', 'error')
-                console.log('error clave')
                 return;
             }
         }else{
@@ -196,34 +185,51 @@ function validarIniciosesion(e){
     }
     inicioValidado(false)
 }
-// function iniciarCuenta(clienteObjeto){
+// const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
+
+// btnIniciarSesion.addEventListener('click', (e) => {
+//     iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
+// })
+function inicioValidado(condicion){
+    if(true){
+        const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
+        iniciarCuenta(datosCliente)
+        return;
+    }
+
+    return alert('Numero máximo de intentos.')
+}
+
+function iniciarCuenta(clienteObjeto){
+    // document.location = "/paginas/inicio-sesion.html"
+    console.log('cliente objeto', clienteObjeto)
     
+    const mensajeBienvenida = document.location.querySelector('.mensaje-bienvenida')
 
+    const infoCliente = document.location.querySelector('.informacion-cliente')
 
-//     const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
-//     const infoCliente = document.querySelector('.informacion-cliente')
+    const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
+    mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
+    infoCliente.innerHTML = `
+        <ul>
+            <li>
+                <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
+            </li>
+            <li>
+                <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
+            </li>
+            <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
+            <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
+            <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
+            <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
+        </ul>
+    `
+    cargarResumenMovimientos(movimientos)
+}
 
-//     const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
-//     mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
-//     infoCliente.innerHTML = `
-//         <ul>
-//             <li>
-//                 <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
-//             </li>
-//             <li>
-//                 <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
-//             </li>
-//             <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
-//             <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
-//             <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
-//             <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
-//         </ul>
-//     `
-//     cargarResumenMovimientos(movimientos)
-// }
-// function cargarResumenMovimientos(movimientosCuenta){
+function cargarResumenMovimientos(movimientosCuenta){
 
-// }
+}
 //! ---------- 3. Funcion Simulador de Credito -----------------------
 function simuladorCredito(){
     let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);

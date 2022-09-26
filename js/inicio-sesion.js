@@ -1,20 +1,11 @@
-// const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
 
-// btnIniciarSesion.addEventListener('click', (e) => {
-//     iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
-// })
-export default function inicioValidado(condicion){
-    if(true){
-        const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
-        iniciarCuenta(datosCliente)
-        console.log('validando sesion1')
-        return;
-    }
-    return alert('Numero máximo de intentos.')
-}
+const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
+iniciarCuenta(datosCliente)
 
-export function iniciarCuenta(clienteObjeto){
-
+function iniciarCuenta(clienteObjeto){
+    // document.location = "/paginas/inicio-sesion.html"
+    console.log('cliente objeto', clienteObjeto)
+    
     const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
 
     const infoCliente = document.querySelector('.informacion-cliente')
