@@ -29,13 +29,13 @@ const cuentas = JSON.parse(localStorage.getItem('cuentas')) || []
 
 //********************************  EVENTOS   ******************************** /
 
-// eventoslistener()
-// function eventoslistener(){
-//     // ----- Evento al cargar la pagina, para que se llenen los datos -----
-//     // document.addEventListener('DOMContentLoaded', (e) => {
-//     //         //Cargar fecha
-//     //         // maximaFechaInput();
-//     //     })
+eventoslistener()
+function eventoslistener(){
+    // ----- Evento al cargar la pagina, para que se llenen los datos -----
+    // document.addEventListener('DOMContentLoaded', (e) => {
+    //         //Cargar fecha
+    //         // maximaFechaInput();
+    //     })
     btnRegistro.addEventListener('click', (e) => {
         formContainer.classList.add('form-registro-is-active');
     })
@@ -63,10 +63,10 @@ const cuentas = JSON.parse(localStorage.getItem('cuentas')) || []
         validarIniciosesion()
     })
 
-    //-------- Eventos para simulador de credito --------------------------
+    // -------- Eventos para simulador de credito --------------------------
     // btnSimuladorCredito.addEventListener('click', simuladorCredito)
 
-// }
+}
 
 //********************************    CLASES    ******************************** /
 
@@ -79,10 +79,12 @@ class Cuenta{
         this.apellido = apellido;
         this.nacimiento = nacimiento;
         this.numeroCuenta = this.generarNumeroCuenta();
-        this.saldo = 0;
-        this.transfereciaRealizada = 0;
+        this.saldo = 0;        
         this.clave = clave;
-        this.movimientos = []
+        this.transferencias = [];
+        this.movimientos = [];
+        this.carrito = [];
+        this.inversiones = [];
     }
     generarNumeroCuenta(){
         this.numeroCuenta = (Math.floor(Math.random() * 100000000)).toString();
@@ -150,7 +152,7 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
     
 }
 //! ---------- Iniciar sesion ----------------------------------------
-let existeID;
+
 function validarIniciosesion(e){
   
     const idInicioSesion = document.querySelector('#id').value
@@ -165,7 +167,7 @@ function validarIniciosesion(e){
 
     while (contador < 3 ){
         
-        existeID = cuentas.find( cuenta => cuenta.id === idInicioSesion )
+        const existeID = cuentas.find( cuenta => cuenta.id === idInicioSesion )
         if(existeID){
             const existeContrasena = existeID.clave === contrasenaInicioSesion
             if(existeContrasena){
@@ -190,46 +192,46 @@ function validarIniciosesion(e){
 // btnIniciarSesion.addEventListener('click', (e) => {
 //     iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
 // })
-function inicioValidado(condicion){
-    if(true){
-        const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
-        iniciarCuenta(datosCliente)
-        return;
-    }
+// function inicioValidado(condicion){
+//     if(true){
+//         const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
+//         iniciarCuenta(datosCliente)
+//         return;
+//     }
 
-    return alert('Numero máximo de intentos.')
-}
+//     return alert('Numero máximo de intentos.')
+// }
 
-function iniciarCuenta(clienteObjeto){
-    // document.location = "/paginas/inicio-sesion.html"
-    console.log('cliente objeto', clienteObjeto)
+// function iniciarCuenta(clienteObjeto){
+//     // document.location = "/paginas/inicio-sesion.html"
+//     console.log('cliente objeto', clienteObjeto)
     
-    const mensajeBienvenida = document.location.querySelector('.mensaje-bienvenida')
+//     const mensajeBienvenida = document.location.querySelector('.mensaje-bienvenida')
 
-    const infoCliente = document.location.querySelector('.informacion-cliente')
+//     const infoCliente = document.location.querySelector('.informacion-cliente')
 
-    const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
-    mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
-    infoCliente.innerHTML = `
-        <ul>
-            <li>
-                <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
-            </li>
-            <li>
-                <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
-            </li>
-            <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
-            <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
-            <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
-            <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
-        </ul>
-    `
-    cargarResumenMovimientos(movimientos)
-}
+//     const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
+//     mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
+//     infoCliente.innerHTML = `
+//         <ul>
+//             <li>
+//                 <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
+//             </li>
+//             <li>
+//                 <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
+//             </li>
+//             <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
+//             <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
+//             <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
+//             <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
+//         </ul>
+//     `
+//     cargarResumenMovimientos(movimientos)
+// }
 
-function cargarResumenMovimientos(movimientosCuenta){
+// function cargarResumenMovimientos(movimientosCuenta){
 
-}
+// }
 //! ---------- 3. Funcion Simulador de Credito -----------------------
 function simuladorCredito(){
     let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);

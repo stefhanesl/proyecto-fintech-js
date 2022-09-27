@@ -1,5 +1,5 @@
 //Variables
-const cursosFintech = document.querySelector('#cursos-fintech');
+const cursosFintech = document.querySelector('#cursos-fintech')
 const listaCursosCarrito =  document.querySelector('#lista-cursos-carrito tbody')
 const carrito = document.querySelector('#carrito')
 const btnVaciarCar = document.querySelector('#vaciar-carrito-ventana')
@@ -8,7 +8,6 @@ const buscadorPalabraInput = document.querySelector('#buscador-input')
 const agregarTotalTablaCarrito = document.querySelector('span[total-tabla="total"]')
 let cursosSeleccionados = []
 
-console.log('hola')
 
 //Eventos
 escuchadorEventos()
@@ -17,12 +16,19 @@ function escuchadorEventos(){
         cargarCursos(cursos);
         cargaCursosLocalStorage()
     })
-    cursosFintech.addEventListener('click', adicionarParaCarrito)
+    cursosFintech.addEventListener('click', (e) => {
+        e.preventDefault()
+        adicionarParaCarrito()
+    })
     carrito.addEventListener('click', eliminarCarrito )
     btnVaciarCar.addEventListener('click', vaciarCarrito)
     buscadorPalabraInput.addEventListener('input', buscarCursos)
 }
-
+function limpiarHtml(){
+    while(cursosFintech.firstChild){
+        cursosFintech.removeChild(cursosFintech.firstChild)
+    }
+}
 //funciones
 function cargarCursos(cursosf){
     limpiarHtml()
@@ -48,11 +54,7 @@ function cargarCursos(cursosf){
     })
 }
 //Limpiar HTML
-function limpiarHtml(){
-    while(cursosFintech.firstChild){
-        cursosFintech.removeChild(cursosFintech.firstChild)
-    }
-}
+
 //Adicionar los cursos seleccionados a la ventana del carrito
 function adicionarParaCarrito(e){
     e.preventDefault()

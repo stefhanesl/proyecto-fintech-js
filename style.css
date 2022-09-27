@@ -135,6 +135,10 @@ div#btn-iniciar-sesion{
     justify-content: space-between;
     padding-right: 40px;
   }
+.fa-shopping-cart{
+    font-size:48px;
+    color:#0F265C      
+}
 #carrito-contenedor{
     margin-right: 60px;
     padding-top: 50px;
@@ -160,9 +164,7 @@ div#btn-iniciar-sesion{
   #carrito-contenedor #carrito{
     display: none;
   }
-  .fa-shopping-cart{
-    z-index: 20;
-  }
+  
   #carrito{
     position: absolute;
     right: 6.5%;

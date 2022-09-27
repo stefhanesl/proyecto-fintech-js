@@ -1,18 +1,35 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    flex-wrap: wrap;
-    font-family: 'Raleway';
-}
 
+#recargar{
+    width: 50%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 670px;
+    text-align: center;
+
+}
+#recargar .tarjeta-credito{
+    width: 100%;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    
+}
+#recargar #cantidad-recargada{
+    width: 100%;
+    outline: none;
+    align-self: flex-end;
+
+}
+#recargar #btn-cantidad-recargada{
+    width: 100%;    
+    height: 60%;
+    align-self: flex-end;
+
+    color: #fff;
+}
 .payment-title {
     width: 100%;
     text-align: center;
@@ -32,6 +49,9 @@ body {
 
 .form-container .field-container:nth-of-type(4) {
     grid-area: security;
+}
+.form-container .field-container:nth-of-type(5) {
+    margin-top: 30px;
 }
 
 .field-container input {
