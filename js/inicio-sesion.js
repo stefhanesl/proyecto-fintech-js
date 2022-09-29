@@ -11,7 +11,7 @@ let movimientosObjeto
 let arrayMovimientos = []
 let clientesTotales = JSON.parse(localStorage.getItem('cuentas')) || []
 
-const datosCliente = JSON.parse(localStorage.getItem('cliente-sesion'))
+let datosCliente = JSON.parse(localStorage.getItem('cliente-sesion'))
 
 //Add Event Listener
 eventos()

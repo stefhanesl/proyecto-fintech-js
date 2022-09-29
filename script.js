@@ -25,8 +25,9 @@ const btnSalirCuenta = document.querySelector('#salir-sesion-cuenta')
 let cliente;
 let numCuentasBancarias = [];
 let cuentasBancarias = [];
-const cuentas = JSON.parse(localStorage.getItem('cuentas')) || []
+// let cuentas = JSON.parse(localStorage.getItem('cuentas')) || []
 
+let clientes = []
 //********************************  EVENTOS   ******************************** /
 
 eventoslistener()
@@ -36,6 +37,9 @@ function eventoslistener(){
     //         //Cargar fecha
     //         // maximaFechaInput();
     //     })
+    document.addEventListener('DOMContentLoaded', (e) => {
+        cargarClientesLocalStorage()
+    })
     btnRegistro.addEventListener('click', (e) => {
         formContainer.classList.add('form-registro-is-active');
     })
@@ -145,11 +149,18 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
     cuentasBancarias = [ ...cuentasBancarias, cliente];
 
-    const datosClientes = JSON.stringify([...cuentas, cliente]);
-    localStorage.setItem('cuentas', datosClientes)
+    guardarCursosLocalStorage([...clientes, cliente])
+    // const datosClientes = JSON.stringify([...cuentas, cliente]);
+    // localStorage.setItem('cuentas', datosClientes)
 
     alert('Su cuenta ha sido creada exitosamente');
     
+}
+function guardarCursosLocalStorage(objetosDeClientes){
+    localStorage.setItem('cuentas', JSON.stringify(objetosDeClientes))
+}
+function cargarClientesLocalStorage(){
+    clientes = JSON.parse(localStorage.getItem('cuentas')) || []
 }
 //! ---------- Iniciar sesion ----------------------------------------
 
@@ -166,25 +177,49 @@ function validarIniciosesion(e){
     }
 
     while (contador < 3 ){
-        
-        const existeID = cuentas.find( cuenta => cuenta.id === idInicioSesion )
-        if(existeID){
-            const existeContrasena = existeID.clave === contrasenaInicioSesion
-            if(existeContrasena){
-                formularioIniciarSesion.reset()
-                mostrarMensaje('Sesión iniciada correctamente')
-                window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
-                window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
+        let existeID;
+        if(Array.isArray(clientes)){
+            existeID = clientes.find( cuenta => cuenta.id === idInicioSesion ) 
+            if(existeID){
+                const existeContrasena = existeID.clave === contrasenaInicioSesion
+                if(existeContrasena){
+                    mostrarMensaje('Sesión iniciada correctamente')
+
+                    window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
+                
+                    formularioIniciarSesion.reset()
+                    window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
+                }else{
+                    mostrarMensaje('La contrasena ingresada es inválida.', 'error')
+                    return;
+                }
             }else{
-                mostrarMensaje('La contrasena ingresada es inválida.', 'error')
-                return;
+                mostrarMensaje('El ID ingresado es inválido.', 'error') 
+                return;   
             }
         }else{
-            mostrarMensaje('El ID ingresado es inválido.', 'error') 
-            return;   
+            if(clientes.id === idInicioSesion){
+                const existeContrasena = clientes.clave === contrasenaInicioSesion
+                console.log(clientes)
+
+                if(existeContrasena){
+                    mostrarMensaje('Sesión iniciada correctamente')
+                    console.log(clientes)
+                    window.localStorage.setItem('cliente-sesion', JSON.stringify(clientes))
+                    formularioIniciarSesion.reset()
+                    window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
+                }else{
+                    mostrarMensaje('La contrasena ingresada es inválida.', 'error')
+                    return;
+                }
+            }else{
+                mostrarMensaje('El ID ingresado es inválido.', 'error') 
+                return;   
+            }
         }
+        
         contador++;
-    }
+    } 
     inicioValidado(false)
 }
 // const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
