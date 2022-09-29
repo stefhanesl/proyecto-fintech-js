@@ -10,20 +10,19 @@ let cursosSeleccionados = []
 
 
 //Eventos
-escuchadorEventos()
-function escuchadorEventos(){
-    document.addEventListener('DOMContentLoaded', (e) => {
-        cargarCursos(cursos);
-        cargaCursosLocalStorage()
-    })
-    cursosFintech.addEventListener('click', (e) => {
-        e.preventDefault()
-        adicionarParaCarrito()
-    })
-    carrito.addEventListener('click', eliminarCarrito )
-    btnVaciarCar.addEventListener('click', vaciarCarrito)
-    buscadorPalabraInput.addEventListener('input', buscarCursos)
-}
+
+document.addEventListener('DOMContentLoaded', (e) => {
+    cargarCursos(cursos);
+    cargaCursosLocalStorage()
+})
+cursosFintech.addEventListener('click', (e) => {
+    e.preventDefault()
+    adicionarParaCarrito(e)
+})
+carrito.addEventListener('click', eliminarCarrito )
+btnVaciarCar.addEventListener('click', vaciarCarrito)
+buscadorPalabraInput.addEventListener('input', buscarCursos)
+
 function limpiarHtml(){
     while(cursosFintech.firstChild){
         cursosFintech.removeChild(cursosFintech.firstChild)
@@ -104,7 +103,6 @@ function agregarCursoALaTablaCarrito(){
             <td>$${prec*cantidad}</td>
             <td><a href='#' data-id=${id} class='eliminar-curso'>✖️</a></td>
         `
-        console.log('mmm')
         listaCursosCarrito.appendChild(fila)
     })
     contadorCursosTotales()

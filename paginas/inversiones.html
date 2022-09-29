@@ -9,6 +9,108 @@
 
 </head>
 <body>
-   
+    <nav id="container-navbar">
+        <div class="navbar-top">
+          <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
+          <div id="carrito-contenedor">
+            <div class="cantidad-cursos"></div>
+            <i class="fa fa-shopping-cart" id="icono-carrito-menu"></i>
+            <div id="carrito">
+              <table id="lista-cursos-carrito" >
+                <thead>
+                  <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+              <a id="vaciar-carrito-ventana">Vaciar Carrito</a>
+            </div>
+          </div>
+        </div>
+        <div id="navbar">
+          <ul>
+            <li> <a  href="/" class="navbar-item">Inicio</a>
+            </li> 
+            <li> <a  href="/paginas/lista-cursos.html" class="navbar-item">Educación</a>
+            </li> 
+            <li> <a href="/paginas/inversiones.html"   class="navbar-item">Inversiones</a></li> 
+            
+          </ul>
+          <div class="btn-navbar-botones">
+            <div class="btn-navbar" id="btn-abrir-cuenta">Abre tu cuenta</div>
+            <div class="btn-navbar" id="btn-iniciar-sesion">Iniciar sesión</div>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container-form-registro">
+      <div id="form-abrir-cuenta">
+        <img src="/img/marca-x.png" class="icono-x" alt="icono-x"/>
+        <h3 id="titulo-form-data">¡Empecemos! <br/><span>Ingresa tus datos</span></h3>
+        <div class="mensaje-info"></div>
+        <form action="" id="formulario-principal">
+          <div class="data-form">
+            <input class="data-form-input" type="number" id="fid" name="fid">
+            <label  for="fid" class="data-form-text">ID*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="text" id="fnombre" name="fnombre">
+          
+            <label class="data-form-text" for="fnombre">Nombre*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="text" id="fapellido"" name="fapellido"">
+            
+            <label class="data-form-text" for="fapellido">Apellido*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="date" id="fnacimiento" name="fnacimiento" >
+            <label class="data-form-text" for="fnacimiento">Fecha de Nacimiento*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="password" id="fcontrasena" name="fcontrasena">
+            <label  for="fcontrasena" class="data-form-text">Contraseña*</label>
+            <span class="form__line"></span>
+          </div>
+          <button type="submit" class="data-form-input"  id="btn-enviar-registro">Deseo mi cuenta</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container-form-iniciar-sesion">
+      <div id="form-iniciar-sesion">
+        <img src="/img/marca-x.png" class="icono-y" alt="icono-y"/>
+        <h3 id="titulo-form-iniciar-sesion">Iniciar sesión</h3>
+        <div class="mensaje-info"></div>
+        <form action=""  id="formulario-principal-iniciar-sesion">
+          <div class="data-form">
+            <input class="data-form-input" type="number" id="id" name="id" />
+            <label  for="id" class="data-form-text">Ingrese ID</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="password" id="contrasena" name="contrasena" />
+            <label  for="contrasena" class="data-form-text">Ingrese contraseña</label>
+            <span class="form__line"></span>
+          </div>
+          <button type="submit" class="data-form-input" " id="btn-submit-iniciar-sesion">Entrar</button>
+        
+        </form>
+      </div>
+    </div>
+
+    <script src="../script.js"></script>
 </body>
 </html>
