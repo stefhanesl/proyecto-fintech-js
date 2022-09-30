@@ -9,13 +9,17 @@ const tablaMovimientos = document.querySelector('#balance-cuenta tbody')
 let saldoAgregado
 let movimientosObjeto
 let arrayMovimientos = []
-let clientesTotales = JSON.parse(localStorage.getItem('cuentas')) || []
+let clientesTotales = JSON.parse(localStorage.getItem('clientes')) 
 
 let datosCliente = JSON.parse(localStorage.getItem('cliente-sesion'))
 
 //Add Event Listener
 eventos()
 function eventos(){
+
+    // document.addEventListener('DOMContentLoaded', (e) => {
+    //     cargarDatosLS()
+    // })
 
     formRecarga.addEventListener('submit', (e) => {
         e.preventDefault()
@@ -120,7 +124,7 @@ function Transferir(clienteEncontrado, montoTransferir, motivo){
                 arrayMovimientos.push(new Movimientos( Date.now(), clienteEncontrado.numeroCuenta, 'Dinero transferido' , montoTransferir, cliente.saldo ))
             }
         })
-        localStorage.setItem('cuentas', JSON.stringify(...cambiosTransaccionales))
+        localStorage.setItem('clientes', JSON.stringify(...cambiosTransaccionales))
         cargarResumenMovimientos(arrayMovimientos)
 }
  function cargarResumenMovimientos(movimientosCuenta){
@@ -146,11 +150,17 @@ function Transferir(clienteEncontrado, montoTransferir, motivo){
             cliente.movimientos = [...arrayMovimientos]
         }
     })
-    localStorage.setItem('cuentas', JSON.stringify(clientes))
+    localStorage.setItem('clientes', JSON.stringify(clientes))
 }
 
 function limpiarMovimientos(){
     while(tablaMovimientos.firstChild){
         tablaMovimientos.removeChild(tablaMovimientos.firstChild)
     }
+}
+function guardarDatosLS(){
+    localStorage.setItem('clientes', JSON.stringify( clientesTotales ))
+}
+function cargarDatosLS(){
+    JSON.parse(localStorage.getItem('clientes'))
 }

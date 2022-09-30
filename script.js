@@ -101,22 +101,7 @@ class Cuenta{
 
 }
 
-//! ---------- 3.Simulador de credito  ------------------------------
-class Credito{
-    constructor(monto, anios, tipoCredito){
-        this.monto = monto;
-        this.anios = anios;
-        this.tipoCredito = tipoCredito;
-    }
 
-    calcularCredito(){
-        const interes = 0.092
-        const montoCredito = parseFloat(this.monto) * (1+interes)
-        const meses = parseFloat(this.anios) * 12
-        alert(`El monto total a pagar de su crédito es de $${(montoCredito).toFixed(2)}, por ${meses} meses.
-               Su pago mensual es de $${(montoCredito/meses).toFixed(2)}.`)
-    }
-}
 //********************************    FUNCIONES  ******************************** /
 
 //! ---------- 1. Crear registro al validar los datos --------------------
@@ -147,9 +132,9 @@ function validarFormulario(e){
 function registrarCuenta(id, nombre, apellido, nacimiento, clave){
    
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
-    cuentasBancarias = [ ...cuentasBancarias, cliente];
-
-    guardarCursosLocalStorage([...clientes, cliente])
+    // cuentasBancarias = [ ...cuentasBancarias, cliente];
+    clientes = [...clientes, cliente]
+    guardarCursosLocalStorage(clientes)
     // const datosClientes = JSON.stringify([...cuentas, cliente]);
     // localStorage.setItem('cuentas', datosClientes)
 
@@ -157,10 +142,11 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
     
 }
 function guardarCursosLocalStorage(objetosDeClientes){
-    localStorage.setItem('cuentas', JSON.stringify(objetosDeClientes))
+    localStorage.clear()
+    localStorage.setItem('clientes', JSON.stringify(objetosDeClientes))
 }
 function cargarClientesLocalStorage(){
-    clientes = JSON.parse(localStorage.getItem('cuentas')) || []
+    clientes = JSON.parse(localStorage.getItem('clientes')) || []
 }
 //! ---------- Iniciar sesion ----------------------------------------
 
