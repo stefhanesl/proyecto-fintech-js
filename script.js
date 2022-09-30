@@ -83,7 +83,7 @@ class Cuenta{
         this.apellido = apellido;
         this.nacimiento = nacimiento;
         this.numeroCuenta = this.generarNumeroCuenta();
-        this.saldo = 0;        
+        this.saldo = parseFloat(0);        
         this.clave = clave;
         this.transferencias = [];
         this.movimientos = [];
@@ -164,11 +164,13 @@ function validarIniciosesion(e){
 
     while (contador < 3 ){
         let existeID;
-        if(Array.isArray(clientes)){
             existeID = clientes.find( cuenta => cuenta.id === idInicioSesion ) 
             if(existeID){
                 const existeContrasena = existeID.clave === contrasenaInicioSesion
                 if(existeContrasena){
+                    console.log(existeID)
+                    existeID.carrito = JSON.parse(localStorage.getItem('cursosEducacion'))
+                    console.log('Inicia sesion', existeID)
                     mostrarMensaje('Sesión iniciada correctamente')
 
                     window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
@@ -182,28 +184,7 @@ function validarIniciosesion(e){
             }else{
                 mostrarMensaje('El ID ingresado es inválido.', 'error') 
                 return;   
-            }
-        }else{
-            if(clientes.id === idInicioSesion){
-                const existeContrasena = clientes.clave === contrasenaInicioSesion
-                console.log(clientes)
-
-                if(existeContrasena){
-                    mostrarMensaje('Sesión iniciada correctamente')
-                    console.log(clientes)
-                    window.localStorage.setItem('cliente-sesion', JSON.stringify(clientes))
-                    formularioIniciarSesion.reset()
-                    window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
-                }else{
-                    mostrarMensaje('La contrasena ingresada es inválida.', 'error')
-                    return;
-                }
-            }else{
-                mostrarMensaje('El ID ingresado es inválido.', 'error') 
-                return;   
-            }
-        }
-        
+            }    
         contador++;
     } 
     inicioValidado(false)

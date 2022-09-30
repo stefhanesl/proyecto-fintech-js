@@ -9,17 +9,17 @@ const tablaMovimientos = document.querySelector('#balance-cuenta tbody')
 let saldoAgregado
 let movimientosObjeto
 let arrayMovimientos = []
-let clientesTotales = JSON.parse(localStorage.getItem('clientes')) 
-
+let clientesTotales = JSON.parse(localStorage.getItem('clientes')) || []
+let clientesCuentas = []
 let datosCliente = JSON.parse(localStorage.getItem('cliente-sesion'))
 
 //Add Event Listener
-eventos()
-function eventos(){
+// eventos()
+// function eventos(){
 
-    // document.addEventListener('DOMContentLoaded', (e) => {
-    //     cargarDatosLS()
-    // })
+//     // document.addEventListener('DOMContentLoaded', (e) => {
+//     //     cargarDatosLS()
+//     // })
 
     formRecarga.addEventListener('submit', (e) => {
         e.preventDefault()
@@ -29,7 +29,7 @@ function eventos(){
         e.preventDefault()
         validarDatosTransferencia(e)
     })
-}
+// }
 class Movimientos{
     constructor(objFecha, objNumCuenta, objDetalle, objMonto, objSaldo){
         this.objFecha= objFecha;
@@ -40,16 +40,18 @@ class Movimientos{
     }
 }
 
-//Funciones
-iniciarCuenta(datosCliente)
+// //Funciones
+//!----------------------------- INCIAR SESION -----------------------------------
+iniciarCuenta( datosCliente )
 
 function iniciarCuenta(clienteObjeto){
-    
     const mensajeBienvenida = document.querySelector('.mensaje-bienvenida')
 
     const infoCliente = document.querySelector('.informacion-cliente')
 
     const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
+
+    
     mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
     infoCliente.innerHTML = `
         <ul>
@@ -62,13 +64,20 @@ function iniciarCuenta(clienteObjeto){
             <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
             <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
             <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
-            <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
+             
         </ul>
     `
-    arrayMovimientos = [...movimientos]
     saldoAgregado = saldo
-    cargarResumenMovimientos(arrayMovimientos)
+    console.log('0. inicio saldoAgregado', saldoAgregado)
+    if(movimientos.length){
+        arrayMovimientos = [...movimientos]
+        cargarResumenMovimientos(arrayMovimientos)
+    }
+    
+
 }
+//!----------------------------- RECARGA -----------------------------------
+
 function validarDatosTarjeta(e){
     if(e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == '' || e.target[3].value == '' || e.target[4].value == ''){
         // mostrarModal()
@@ -80,14 +89,18 @@ function validarDatosTarjeta(e){
         console.log('Ingrese un monto mayor a $1 USD.')
         return;
     }
+    console.log(e.target)
     recargarSaldo(e.target[4].value);
 }
 function recargarSaldo(montoIngresado){
-    datosCliente.saldo += parseFloat(montoIngresado)
-    arrayMovimientos.push(new Movimientos( Date.now(), 'Propio', 'Dinero de recarga' , montoIngresado, datosCliente.saldo ))
-    console.log(arrayMovimientos)
+    saldoAgregado += parseFloat(montoIngresado)
+    console.log(saldoAgregado)
+    arrayMovimientos.push(new Movimientos( Date.now(), 'Propio', 'Dinero de recarga' , montoIngresado, saldoAgregado ))
+    console.log('recarga movimientos', arrayMovimientos)
     cargarResumenMovimientos(arrayMovimientos)
 }
+//!----------------------------- TRANSFERENCIA -----------------------------------
+
 function validarDatosTransferencia(e){
     if(e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == ''){
         // mostrarModal()
@@ -99,8 +112,9 @@ function validarDatosTransferencia(e){
         console.log('Ingrese un monto mayor a $1 USD.')
         return;
     }
-    const clienteEncontrado = clientesTotales.find( cliente => cliente.numeroCuenta === e.target[0].value )
-    if(!clienteEncontrado){
+
+    const clienteAccesado = clientesTotales.find( cliente => cliente.numeroCuenta === e.target[0].value )
+    if(!clienteAccesado){
         // mostrarModal()
         console.log('La cuenta ingresada no existe.')
         return;
@@ -110,27 +124,49 @@ function validarDatosTransferencia(e){
         console.log('Usted no cuenta con saldo para realizar esta operación.')
         return;
     }
+    console.log('DATOS a transferir',e.target[0].value, e.target[1].value, e.target[2].value)
     Transferir(e.target[0].value, e.target[1].value, e.target[2].value)
 }
 function Transferir(clienteEncontrado, montoTransferir, motivo){
-
+        montoTransferir = parseFloat(montoTransferir)
         const cambiosTransaccionales = clientesTotales.map( cliente => {
-            if(cliente.id === clienteEncontrado.id){
+            if(cliente.numeroCuenta === clienteEncontrado){
                 cliente.saldo += montoTransferir
-                cliente.movimientos.push(new Movimientos( Date.now(), datosCliente.numeroCuenta, 'Dinero recibido transferencia' , montoTransferir, cliente.saldo ))
+                console.log('cliente que recibe', cliente.saldo)
+                cliente.movimientos.push(new Movimientos( Date.now(), datosCliente.numeroCuenta, `Dinero recibido: ${motivo}` , montoTransferir, cliente.saldo ))
             }else if(cliente.id === datosCliente.id){
+                console.log('cliente que envia antes de la transf', cliente.saldo)
                 cliente.saldo -= montoTransferir
-                datosCliente.saldo -= montoTransferir
-                arrayMovimientos.push(new Movimientos( Date.now(), clienteEncontrado.numeroCuenta, 'Dinero transferido' , montoTransferir, cliente.saldo ))
+                saldoAgregado -= montoTransferir
+                console.log('1. cliente que envia transf', cliente.saldo)
+                console.log('1. cliente saldoAgregado', saldoAgregado)
+                arrayMovimientos.push(new Movimientos( Date.now(), clienteEncontrado, `Dinero transferido: ${motivo}` , montoTransferir, saldoAgregado ))
             }
         })
         localStorage.setItem('clientes', JSON.stringify(...cambiosTransaccionales))
         cargarResumenMovimientos(arrayMovimientos)
 }
+
+
+//!----------------------------- TABLA CARGAR MOVIMIENTOS -----------------------------------
  function cargarResumenMovimientos(movimientosCuenta){
+    console.log('1M. arrayMov', arrayMovimientos)
+
 
     limpiarMovimientos()
-
+    if(movimientosCuenta){
+        const datos = clientesTotales.map( cli => {
+            if(cli.id === datosCliente.id){
+                cli.saldo = saldoAgregado
+                datosCliente.saldo = saldoAgregado
+                cli.movimientos = [...arrayMovimientos]
+                localStorage.setItem('cliente-sesion', JSON.stringify(cli))
+                return cli
+            }
+            return cli
+        })
+        localStorage.setItem('clientes', JSON.stringify(datos))
+    }
     movimientosCuenta.forEach( detalleMovimientos => {
         const {objFecha, objNumCuenta, objDetalle, objMonto, objSaldo} = detalleMovimientos 
         
@@ -144,23 +180,10 @@ function Transferir(clienteEncontrado, montoTransferir, motivo){
         `
         tablaMovimientos.appendChild(trFila)
     });
-    console.log(clientesTotales)
-    const clientes = clientesTotales.map( cliente => {
-        if( cliente.id === datosCliente.id ){
-            cliente.movimientos = [...arrayMovimientos]
-        }
-    })
-    localStorage.setItem('clientes', JSON.stringify(clientes))
 }
 
 function limpiarMovimientos(){
     while(tablaMovimientos.firstChild){
         tablaMovimientos.removeChild(tablaMovimientos.firstChild)
     }
-}
-function guardarDatosLS(){
-    localStorage.setItem('clientes', JSON.stringify( clientesTotales ))
-}
-function cargarDatosLS(){
-    JSON.parse(localStorage.getItem('clientes'))
 }
