@@ -168,21 +168,40 @@ function validarIniciosesion(e){
             if(existeID){
                 const existeContrasena = existeID.clave === contrasenaInicioSesion
                 if(existeContrasena){
-                    console.log(existeID)
-                    existeID.carrito = JSON.parse(localStorage.getItem('cursosEducacion'))
-                    console.log('Inicia sesion', existeID)
-                    mostrarMensaje('Sesión iniciada correctamente')
-
-                    window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
-                
-                    formularioIniciarSesion.reset()
-                    window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
+                    Swal.fire({
+                        title: 'INICIO DE SESIÓN',
+                        icon: 'success',
+                        confirmButtonText: 'Cool',
+                        confirmButtonColor: '#0F265C',
+                        timer: 4000,
+                        iconColor: '#0F265C',
+                        text: `Su incio de sesion se ha completado exitosamente. Sr(a). ${existeID.nombre} `,
+                        imageUrl: '/img/logo-fintech.jpg',
+                        imageHeight: 200
+                    })
+                    setTimeout(() => {
+                        window.localStorage.setItem('cliente-sesion', JSON.stringify(existeID))
+                        formularioIniciarSesion.reset()
+                        window.location.assign("http://127.0.0.1:5500/paginas/inicio-sesion.html")
+                    }, 4000);
                 }else{
-                    mostrarMensaje('La contrasena ingresada es inválida.', 'error')
+                    Swal.fire({
+                        title: 'ERROR',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        text: `La contraseña es incorrecta.`,
+                    })
                     return;
                 }
             }else{
-                mostrarMensaje('El ID ingresado es inválido.', 'error') 
+                Swal.fire({
+                    title: 'ERROR',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    text: `El usuario no existe.`,
+                })
                 return;   
             }    
         contador++;

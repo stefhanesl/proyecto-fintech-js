@@ -68,7 +68,7 @@ function iniciarCuenta(clienteObjeto){
         </ul>
     `
     saldoAgregado = saldo
-    console.log('0. inicio saldoAgregado', saldoAgregado)
+
     if(movimientos.length){
         arrayMovimientos = [...movimientos]
         cargarResumenMovimientos(arrayMovimientos)
@@ -81,22 +81,22 @@ function iniciarCuenta(clienteObjeto){
 function validarDatosTarjeta(e){
     if(e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == '' || e.target[3].value == '' || e.target[4].value == ''){
         // mostrarModal()
-        console.log('Ingrese todos los campos.')
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese todos los campos.')
         return;
     }
     if(e.target[4].value <= 1){
         // mostrarModal()
-        console.log('Ingrese un monto mayor a $1 USD.')
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese un monto mayor a $1 USD.')
         return;
     }
-    console.log(e.target)
+
     recargarSaldo(e.target[4].value);
 }
 function recargarSaldo(montoIngresado){
     saldoAgregado += parseFloat(montoIngresado)
-    console.log(saldoAgregado)
     arrayMovimientos.push(new Movimientos( Date.now(), 'Propio', 'Dinero de recarga' , montoIngresado, saldoAgregado ))
-    console.log('recarga movimientos', arrayMovimientos)
+
+    mostrarMensajeSweet('Recarga', 'success', false, 2000, 'La recarga ha sido exitosa.')
     cargarResumenMovimientos(arrayMovimientos)
 }
 //!----------------------------- TRANSFERENCIA -----------------------------------
@@ -104,27 +104,27 @@ function recargarSaldo(montoIngresado){
 function validarDatosTransferencia(e){
     if(e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == ''){
         // mostrarModal()
-        console.log('Ingrese todos los campos.')
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese todos los campos.')
         return;
     }
     if(e.target[1].value <= 1){
         // mostrarModal()
-        console.log('Ingrese un monto mayor a $1 USD.')
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese un monto mayor a $1 USD.')
         return;
     }
 
     const clienteAccesado = clientesTotales.find( cliente => cliente.numeroCuenta === e.target[0].value )
     if(!clienteAccesado){
         // mostrarModal()
-        console.log('La cuenta ingresada no existe.')
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'La cuenta ingresada no existe.')
         return;
     }
     if(datosCliente.saldo < e.target[1].value){
         // mostrarModal()
-        console.log('Usted no cuenta con saldo para realizar esta operación.')
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Usted no cuenta con saldo para realizar esta operación.')
         return;
     }
-    console.log('DATOS a transferir',e.target[0].value, e.target[1].value, e.target[2].value)
+   
     Transferir(e.target[0].value, e.target[1].value, e.target[2].value)
 }
 function Transferir(clienteEncontrado, montoTransferir, motivo){
@@ -132,28 +132,27 @@ function Transferir(clienteEncontrado, montoTransferir, motivo){
         const cambiosTransaccionales = clientesTotales.map( cliente => {
             if(cliente.numeroCuenta === clienteEncontrado){
                 cliente.saldo += montoTransferir
-                console.log('cliente que recibe', cliente.saldo)
+           
                 cliente.movimientos.push(new Movimientos( Date.now(), datosCliente.numeroCuenta, `Dinero recibido: ${motivo}` , montoTransferir, cliente.saldo ))
             }else if(cliente.id === datosCliente.id){
-                console.log('cliente que envia antes de la transf', cliente.saldo)
+                
                 cliente.saldo -= montoTransferir
                 saldoAgregado -= montoTransferir
-                console.log('1. cliente que envia transf', cliente.saldo)
-                console.log('1. cliente saldoAgregado', saldoAgregado)
+
                 arrayMovimientos.push(new Movimientos( Date.now(), clienteEncontrado, `Dinero transferido: ${motivo}` , montoTransferir, saldoAgregado ))
             }
         })
         localStorage.setItem('clientes', JSON.stringify(...cambiosTransaccionales))
+        mostrarMensajeSweet('Transferencia', 'success', false, 3000, `La transferencia de $${montoTransferir} ha sido exitosa.`)
         cargarResumenMovimientos(arrayMovimientos)
 }
 
 
 //!----------------------------- TABLA CARGAR MOVIMIENTOS -----------------------------------
  function cargarResumenMovimientos(movimientosCuenta){
-    console.log('1M. arrayMov', arrayMovimientos)
-
 
     limpiarMovimientos()
+
     if(movimientosCuenta){
         const datos = clientesTotales.map( cli => {
             if(cli.id === datosCliente.id){
@@ -186,4 +185,15 @@ function limpiarMovimientos(){
     while(tablaMovimientos.firstChild){
         tablaMovimientos.removeChild(tablaMovimientos.firstChild)
     }
+}
+
+function mostrarMensajeSweet(title, icon, showConfirmButton, timer, text){
+    Swal.fire({
+        title: title,
+        icon: icon,
+        showConfirmButton: showConfirmButton,
+        timer: 2000,
+        text: text,
+    })
+
 }

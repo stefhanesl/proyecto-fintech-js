@@ -115,11 +115,17 @@ div.btn-navbar-botones{
  .balance-tabla tbody tr { border-bottom: 1px solid #dddddd; } 
  .balance-tabla tbody tr:nth-of-type(even) { background-color: #f3f3f3; } .styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }
 
-
+section#recargar{
+    position: absolute;
+    top: 1000px;
+}
 
  #transferir{
     position: absolute;
-    top: 1300px;
+    top: 1500px;
+ }
+ #transferir button{
+    color: #FFF;
  }
  /* #invertir{
     position: absolute;

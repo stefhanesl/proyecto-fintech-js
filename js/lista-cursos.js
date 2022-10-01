@@ -1,3 +1,5 @@
+// const { default: Swal } = require("sweetalert2")
+
 //Variables
 const cursosFintech = document.querySelector('#cursos-fintech')
 const listaCursosCarrito =  document.querySelector('#lista-cursos-carrito tbody')
@@ -66,6 +68,7 @@ function adicionarParaCarrito(e){
             id: course.querySelector('a').getAttribute('data-id'),
             cantidad: 1
         }
+        mostrarMensajeAlert('Ha agregado un curso', 'success', 'Acepto', `El curso de ${cursoObjeto.nombre} ha sido seleccionado`, cursoObjeto.imagen, 200)
         const cursoExiste = cursosSeleccionados.some( curso => curso.id === cursoObjeto.id )
         if( cursoExiste ){
             const cursosAdicionados = cursosSeleccionados.map( curso => {
@@ -125,6 +128,7 @@ function eliminarCarrito(e){
     }
 }
 function vaciarCarrito(){
+
     cursosSeleccionados = []
     contadorCursosTotales()
     agregarCursoALaTablaCarrito()
@@ -160,4 +164,16 @@ function buscarCursos(e){
     const palabra = e.target.value
    const cursosBuscadosArray = cursos.filter( curso => curso.nombre.toLowerCase().indexOf( palabra.toLowerCase()) !== -1)
    cargarCursos(cursosBuscadosArray)
+}
+function mostrarMensajeAlert(title, icon, confirmButtonText, text, img, height){
+    Swal.fire({
+        title: title,
+        icon: icon,
+        confirmButtonText: confirmButtonText,
+        confirmButtonColor: '#0F265C',
+        iconColor: '#0F265C',
+        text: text,
+        imageUrl: img,
+        imageHeight: height
+    })
 }
