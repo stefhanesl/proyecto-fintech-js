@@ -134,11 +134,21 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
     // cuentasBancarias = [ ...cuentasBancarias, cliente];
     clientes = [...clientes, cliente]
+    Swal.fire({
+        title: 'Registro',
+        icon: 'success',
+        confirmButtonText: 'Cool',
+        confirmButtonColor: '#0F265C',
+        timer: 4000,
+        iconColor: '#0F265C',
+        text: `Sr(a). ${nombre} ${apellido}, su cuenta ha sido creada exitosamente`,
+        imageUrl: '/img/logo-fintech.jpg',
+        imageHeight: 200
+    })
     guardarCursosLocalStorage(clientes)
     // const datosClientes = JSON.stringify([...cuentas, cliente]);
     // localStorage.setItem('cuentas', datosClientes)
 
-    alert('Su cuenta ha sido creada exitosamente');
     
 }
 function guardarCursosLocalStorage(objetosDeClientes){
