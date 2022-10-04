@@ -346,17 +346,18 @@ label.data-form-text{
 #btn-enviar-registro,
 #btn-submit-iniciar-sesion{
     background-color: #0F265C;
+    border-radius: 10px;
     color: #fff;
     font-weight: 700;
     font-size: 1.5rem;
     padding: .6em 0;
 }
-.error{
+.error, .exito{
     width: 100%;
     height: auto;
     border: 1px solid #f11e1e;
-    font-size: 12px;
-    padding: 0.15rem 0;
+    font-size: 11px;
+    padding: 0.05rem 0;
     color: #f11e1e;
     border-radius: 5px;
     margin-top: 0.8em;

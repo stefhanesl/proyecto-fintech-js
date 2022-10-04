@@ -1,10 +1,9 @@
 //-------- Variables
-
 const btnmontoTarjeta = document.querySelector('#btn-cantidad-recargada')
-
 const formRecarga = document.querySelector('.form-recarga')
 const formTransferencia = document.querySelector('.form-transferir-dinero')
 const tablaMovimientos = document.querySelector('#balance-cuenta tbody')
+const botonSalir = document.querySelector('#btn-salir-sesion')
 
 let saldoAgregado
 let movimientosObjeto
@@ -13,23 +12,21 @@ let clientesTotales = JSON.parse(localStorage.getItem('clientes')) || []
 let clientesCuentas = []
 let datosCliente = JSON.parse(localStorage.getItem('cliente-sesion'))
 
-//Add Event Listener
-// eventos()
-// function eventos(){
 
-//     // document.addEventListener('DOMContentLoaded', (e) => {
-//     //     cargarDatosLS()
-//     // })
+// eventos
+formRecarga.addEventListener('submit', (e) => {
+    e.preventDefault()
+    validarDatosTarjeta(e)
+})
+formTransferencia.addEventListener('submit', (e) => {
+    e.preventDefault()
+    validarDatosTransferencia(e)
+})
+botonSalir.addEventListener('click', (e) => {
+    localStorage.removeItem('cliente-sesion')
+})
 
-    formRecarga.addEventListener('submit', (e) => {
-        e.preventDefault()
-        validarDatosTarjeta(e)
-    })
-    formTransferencia.addEventListener('submit', (e) => {
-        e.preventDefault()
-        validarDatosTransferencia(e)
-    })
-// }
+
 class Movimientos{
     constructor(objFecha, objNumCuenta, objDetalle, objMonto, objSaldo){
         this.objFecha= objFecha;

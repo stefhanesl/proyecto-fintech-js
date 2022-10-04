@@ -17,10 +17,6 @@ const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
 const formularioIniciarSesion = document.querySelector('#formulario-principal-iniciar-sesion')
 const btnSalirCuenta = document.querySelector('#salir-sesion-cuenta')
 
-// Simulador de credito
-// const btnSimuladorCredito = document.querySelector('#simulador-credito a')
-
-
 // ----- Variables  -----
 let cliente;
 let numCuentasBancarias = [];
@@ -33,10 +29,10 @@ let clientes = []
 eventoslistener()
 function eventoslistener(){
     // ----- Evento al cargar la pagina, para que se llenen los datos -----
-    // document.addEventListener('DOMContentLoaded', (e) => {
-    //         //Cargar fecha
-    //         // maximaFechaInput();
-    //     })
+    document.addEventListener('DOMContentLoaded', (e) => {
+            //Cargar fecha
+            maximaFechaInput();
+        })
     document.addEventListener('DOMContentLoaded', (e) => {
         cargarClientesLocalStorage()
     })
@@ -66,10 +62,6 @@ function eventoslistener(){
         e.preventDefault()
         validarIniciosesion()
     })
-
-    // -------- Eventos para simulador de credito --------------------------
-    // btnSimuladorCredito.addEventListener('click', simuladorCredito)
-
 }
 
 //********************************    CLASES    ******************************** /
@@ -107,7 +99,7 @@ class Cuenta{
 //! ---------- 1. Crear registro al validar los datos --------------------
 function validarDatosInput(e){
     if( e.target.value === ''){
-        mostrarMensaje('*Este campo es obligatorio', 'error');
+        mostrarMensaje('*Este campo es obligatorio', 'error', e.target);
         return;
     }
 }
@@ -121,7 +113,7 @@ function validarFormulario(e){
     const clave = contrasenaInput.value;
 
     if( id === '' | nombre === '' | apellido === '' | nacimiento === '' | clave === '' ){
-        mostrarMensaje('**Todos los campos son obligatorios', 'error');
+        mostrarMensaje('**Todos los campos son obligatorios', 'error', formulario);
         return;
     }
     formContainer.classList.remove('form-registro-is-active');
@@ -132,8 +124,9 @@ function validarFormulario(e){
 function registrarCuenta(id, nombre, apellido, nacimiento, clave){
    
     cliente = new Cuenta( id, nombre, apellido, nacimiento, clave );
-    // cuentasBancarias = [ ...cuentasBancarias, cliente];
+
     clientes = [...clientes, cliente]
+
     Swal.fire({
         title: 'Registro',
         icon: 'success',
@@ -146,10 +139,7 @@ function registrarCuenta(id, nombre, apellido, nacimiento, clave){
         imageHeight: 200
     })
     guardarCursosLocalStorage(clientes)
-    // const datosClientes = JSON.stringify([...cuentas, cliente]);
-    // localStorage.setItem('cuentas', datosClientes)
 
-    
 }
 function guardarCursosLocalStorage(objetosDeClientes){
     localStorage.clear()
@@ -168,7 +158,7 @@ function validarIniciosesion(e){
     let contador = 0
 
     if(idInicioSesion === '' || contrasenaInicioSesion === ''){
-        mostrarMensaje('Llene todos los campos.', 'error')
+        mostrarMensaje('Llene todos los campos.', 'error', formularioIniciarSesion)
         return;
     }
 
@@ -218,71 +208,7 @@ function validarIniciosesion(e){
     } 
     inicioValidado(false)
 }
-// const btnIniciarSesion = document.querySelector('#btn-iniciar-sesion');
 
-// btnIniciarSesion.addEventListener('click', (e) => {
-//     iniciarSesionContainer.classList.add('form-iniciar-sesion-is-active')
-// })
-// function inicioValidado(condicion){
-//     if(true){
-//         const datosCliente = window.JSON.parse(localStorage.getItem('cliente-sesion'))
-//         iniciarCuenta(datosCliente)
-//         return;
-//     }
-
-//     return alert('Numero máximo de intentos.')
-// }
-
-// function iniciarCuenta(clienteObjeto){
-//     // document.location = "/paginas/inicio-sesion.html"
-//     console.log('cliente objeto', clienteObjeto)
-    
-//     const mensajeBienvenida = document.location.querySelector('.mensaje-bienvenida')
-
-//     const infoCliente = document.location.querySelector('.informacion-cliente')
-
-//     const {id, nombre, apellido, nacimiento, numeroCuenta, saldo, transfereciaRealizada, movimientos} = clienteObjeto
-//     mensajeBienvenida.innerHTML = `¡Bienvenid@ ${nombre}!`
-//     infoCliente.innerHTML = `
-//         <ul>
-//             <li>
-//                 <div class='datos-cliente'><strong>ID:  </strong>${id}</div>
-//             </li>
-//             <li>
-//                 <div class='datos-cliente'><strong>Nombres:  </strong>${nombre} ${apellido}</div>
-//             </li>
-//             <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
-//             <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
-//             <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
-//             <li><div class='datos-cliente'><strong>Transferencias realizadas:  </strong>${transfereciaRealizada}</div></li>  
-//         </ul>
-//     `
-//     cargarResumenMovimientos(movimientos)
-// }
-
-// function cargarResumenMovimientos(movimientosCuenta){
-
-// }
-//! ---------- 3. Funcion Simulador de Credito -----------------------
-function simuladorCredito(){
-    let montoIngresado = prompt('Ingrese el monto de su crédito:', 0);
-    while( isNaN(montoIngresado) || parseFloat(montoIngresado) == 0){
-        montoIngresado = prompt('Ingrese el monto de su crédito:', 0);
-    }
-
-    let aniosIngresados = prompt('Ingrese el tiempo del credito en años: ', 0);
-    while( isNaN(aniosIngresados) || parseFloat(aniosIngresados) == 0 ){
-        aniosIngresados = prompt('Ingrese el tiempo del credito en años: ', 0);
-    }
-
-    let tipoCreditoIngresado = prompt('Ingrese el tipo de crédito: ');
-    while( tipoCreditoIngresado == '' || !isNaN(tipoCreditoIngresado) ){
-        tipoCreditoIngresado = prompt('Ingrese el tipo de crédito: ');
-    }
-    let credito = new Credito(montoIngresado, aniosIngresados, tipoCreditoIngresado);
-    
-    credito.calcularCredito();
-}
 //! --------------- Funciones para la interfaz de usuario ---------------
 //Carga a fecha maxima que puede tener el formulario
 function maximaFechaInput(){
@@ -291,24 +217,27 @@ function maximaFechaInput(){
     nacimientoInput.max = today;
 }
 // Mostar mensaje de error o de exito si se ha completado algun campo o formulario
-function mostrarMensaje(mensaje, tipo){
+function mostrarMensaje(mensaje, tipo, nodo){
 
-    const divMensajes  = document.querySelectorAll('.mensaje-info')
-    divMensajes.forEach( divMensaje => {
-        if( tipo === 'error'){
-            divMensaje.classList.add('error');
-        }else{
-            divMensaje.classList.add('exito');
-        }
-        divMensaje.textContent = mensaje;
-        setTimeout(() => {
-            divMensaje.textContent = ''
-            divMensaje.classList.remove('error', 'exito')
-        }, 3000); 
-    })
+    const divMensaje = document.createElement('div')
+
+    if( tipo === 'error'){
+        divMensaje.classList.add('error');
+    }else{
+        divMensaje.classList.add('exito');
+    }
+    divMensaje.textContent = mensaje;
+
+    const existeError = nodo.parentElement.querySelector('.error')
+
+    if(!existeError){
+        nodo.insertAdjacentElement('beforebegin', divMensaje);
+    }
+
+    setTimeout(() => {
+        divMensaje.textContent = ''
+        divMensaje.classList.remove('error', 'exito')
+    }, 2000); 
+
     return;
-}
-function salirSesionCuenta(){
-    uiCuenta.style.display = 'none'
-    navbar.style.display = 'block'
 }
