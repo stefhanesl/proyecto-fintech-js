@@ -1,8 +1,18 @@
+
 .loader h1{
   font-size: 30px;
   color: #d6d7db;
   width: 100%;
   text-align: center;
+}
+.carga{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.carga h1{
+  color: #d6d7db;
+
 }
 
 .scaling-squares-spinner, .scaling-squares-spinner * {

@@ -26,7 +26,6 @@ botonSalir.addEventListener('click', (e) => {
     localStorage.removeItem('cliente-sesion')
 })
 
-
 class Movimientos{
     constructor(objFecha, objNumCuenta, objDetalle, objMonto, objSaldo){
         this.objFecha= objFecha;
@@ -37,7 +36,7 @@ class Movimientos{
     }
 }
 
-// //Funciones
+//Funciones
 //!----------------------------- INCIAR SESION -----------------------------------
 iniciarCuenta( datosCliente )
 
@@ -165,10 +164,14 @@ function Transferir(clienteEncontrado, montoTransferir, motivo){
     }
     movimientosCuenta.forEach( detalleMovimientos => {
         const {objFecha, objNumCuenta, objDetalle, objMonto, objSaldo} = detalleMovimientos 
+       
+        const DateTime = luxon.DateTime
+        const fechaAhora = DateTime.now()
+        console.log(fechaAhora)
         
         const trFila = document.createElement('tr')
         trFila.innerHTML = `
-                <th scope="row">${objFecha}</th>
+                <th scope="row">${fechaAhora.c.day}/${fechaAhora.c.month}/${fechaAhora.c.year}  -  ${fechaAhora.c.hour}h:${fechaAhora.c.minute}m</th>
                 <td>${objNumCuenta}</td>
                 <td>${objDetalle}</td>
                 <td>${objMonto}</td>

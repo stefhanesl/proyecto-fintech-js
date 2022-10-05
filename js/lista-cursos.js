@@ -5,7 +5,8 @@ const carrito = document.querySelector('#carrito')
 const btnVaciarCar = document.querySelector('#vaciar-carrito-ventana')
 const cantidadDeCursosCarrito = document.querySelector('.cantidad-cursos')
 const buscadorPalabraInput = document.querySelector('#buscador-input')
-const agregarTotalTablaCarrito = document.querySelector('span[total-tabla="total"]')
+const agregarTotalTablaCarrito = document.querySelector('.total-factura')
+const btnFinalizarCompra = document.querySelector('#finalizar-compra-ventana')
 let cursosSeleccionados = []
 
 //Eventos
@@ -34,7 +35,7 @@ cursosFintech.addEventListener('click', (e) => {
 carrito.addEventListener('click', eliminarCarrito)
 btnVaciarCar.addEventListener('click', vaciarCarrito)
 buscadorPalabraInput.addEventListener('input', buscarCursos)
-
+btnFinalizarCompra.addEventListener('click', facturarCompra)
 //funciones
 
 const getFetch = async(ruta) => {
@@ -87,7 +88,7 @@ function adicionarParaCarrito(e) {
         const cursoObjeto = {
             imagen: course.querySelector('img').src,
             nombre: course.querySelector('h3').textContent,
-            precio: course.querySelector('h2').textContent,
+            precio: course.querySelector('h2').textContent.substring(1),
             id: course.querySelector('a').getAttribute('data-id'),
             cantidad: 1
         }
@@ -167,12 +168,16 @@ function contadorCursosTotales() {
 
     const cuentaCantidadTotalCursos = cursosSeleccionados.reduce((total, curso) => total + curso.cantidad, 0)
 
+    const precioTotalCursos = cursosSeleccionados.reduce((total, curso) => total + (curso.cantidad * curso.precio), 0)
+
     if (cuentaCantidadTotalCursos > 0) {
         cantidadDeCursosCarrito.classList.add('cantidad-num')
         cantidadDeCursosCarrito.textContent = cuentaCantidadTotalCursos
+        agregarTotalTablaCarrito.innerHTML = `El total de su compra es: ${(precioTotalCursos).toFixed(2)}`
     } else {
         cantidadDeCursosCarrito.classList.remove('cantidad-num')
         cantidadDeCursosCarrito.textContent = ''
+        agregarTotalTablaCarrito.innerHTML = ''
     }
 }
 
@@ -193,4 +198,46 @@ function mostrarMensajeAlert(title, icon, confirmButtonText, text, img, height) 
         imageUrl: img,
         imageHeight: height
     })
+}
+
+function facturarCompra(){
+    Swal.fire({
+        title: 'Desea finalizar la compra?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, deseo',
+        cancelButtonText: 'No, no quiero',
+        confirmButtonColor: '#0f265c',
+        cancelButtonColor: '#FF907F',
+    }).then((result)=>{
+        if(result.isConfirmed){
+            Swal.fire({
+            title: 'Compra realizada con exito.',
+            html: `<input type="text" id="login" class="swal2-input" placeholder="Escriba sus nombre...">
+            <input type="number" id="number" class="swal2-input" placeholder="Escriba su telefono..."> 
+            <input type="text" id="correo" class="swal2-input" placeholder="Escriba su correo...">`,
+            icon: 'info',
+            confirmButtonColor: '#0f265c',
+            confirmButtonText: 'Finalizar compra'
+            }).then((respuesta) => {
+                Swal.fire({
+                    title: 'Gracias por su compra.',
+                    icon: 'success',
+                    confirmButtonText: '¡Cool!',
+                    confirmButtonColor: '#0f265c'
+                })
+            })
+            cursosSeleccionados = []
+            localStorage.removeItem("cursosEducacion")
+
+        }else{
+            Swal.fire({
+                title: 'Compra no realizada',
+                icon: 'info',
+                text: `La compra no ha sido realizada! Atención sus productos siguen en el carrito 😃`,
+                confirmButtonColor: '#0f265c'
+            })
+        }
+    })
+
 }

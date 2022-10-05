@@ -1,5 +1,20 @@
 const contenedorCripto = document.querySelector('.contenedor-inversion')
+const contenedorTabla = document.querySelector('.contenedor-criptomonedas')
 const tablaCripto = document.querySelector('.contenedor-criptomonedas tbody')
+
+
+document.addEventListener('DOMContentLoaded', (e) => {
+    
+    let divCarga = document.querySelector('.carga')
+
+    setTimeout(() => {
+
+        divCarga.style.display = 'none'
+        contenedorTabla.style.visibility= 'visible'
+
+    }, 3000);
+})
+
 
 const peticionApi = async() => {
 

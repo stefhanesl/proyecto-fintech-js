@@ -12,9 +12,6 @@
   position: relative;
   cursor: pointer;
 }
-#carrito-contenedor{
-  position: relative;
-}
 
 .cantidad-num{
   position: absolute;
@@ -33,6 +30,8 @@
 }
 #carrito{
   position: absolute;
+  display: grid;
+  grid-template-rows: 1fr 25px 40px;
   right: 6.5%;
   top: 50%;
   min-height: 400px;
@@ -48,23 +47,23 @@
   display: block;
 }
 table#lista-cursos-carrito{
- margin-bottom: 10px;
  width: 100%;
- border-collapse:separate
+ border-collapse:separate;
+ padding: 0 20px
 }
 table#lista-cursos-carrito thead tr{
+  display: grid;
+  grid-template-columns: 3em 170px repeat(3, 5em) 20px;
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
 
-  margin-bottom: 10px;
-  display: flex;
-  margin: 10px;
-  gap: 5px;
  }
  table#lista-cursos-carrito thead th{
-
   margin-right: 3px;
  }
  table#lista-cursos-carrito thead th:nth-child(2){
-  min-width: 38%;
+  min-width: 30%;
  }
 table#lista-cursos-carrito tr{
   border-bottom: 1px solid #a6a4c1;
@@ -72,10 +71,10 @@ table#lista-cursos-carrito tr{
  }
 
 table#lista-cursos-carrito tbody tr{
-  margin-bottom: 10px;
-  display: flex;
-  margin: 10px;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 3em 170px repeat(3, 5em) 20px;
+  gap: 20px;
+
  }
 
  table#lista-cursos-carrito tbody td:nth-child(2){
@@ -96,15 +95,18 @@ table#lista-cursos-carrito tbody tr{
  #carrito h5{
   text-align: center;
  }
- #carrito #vaciar-carrito-ventana{
+ #carrito .botones-tabla{
+  display: flex;
+  justify-content: center;
+  width: 100%;
   position: absolute;
-  bottom: 1%;
-  width: 50%;
-  display: block;
-  left: 20%;
-  margin: 0 auto;
+  bottom: 3%;
+  left: 0%;
+
+ }
+#vaciar-carrito-ventana, #finalizar-compra-ventana{
+  display: inline-block;
   background: #E9ECF3;
-  padding: 11px 25px;
   border-radius: 4px;
   padding: 10px 25px;
   text-align: center;
@@ -112,6 +114,11 @@ table#lista-cursos-carrito tbody tr{
   font-weight: 600;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
  } 
+ #finalizar-compra-ventana{
+  margin-left: 10px;
+  background: #0F265C;
+  color: #fff;
+ }
 
  main{
   display: flex;
@@ -345,6 +352,13 @@ table th {
   table td:last-child {
     border-bottom: 0;
   }
+}
+body .back-main{
+  visibility: hidden;
+  position: absolute;
+  top: 280px;
+  width: 100vw;
+  height: 80vh;
 }
 
 
