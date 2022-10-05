@@ -10,18 +10,42 @@ let cursosSeleccionados = []
 
 //Eventos
 document.addEventListener('DOMContentLoaded', (e) => {
-    cargarCursos(cursos);
+    
+    let divLoader = document.querySelector('.loader')
+
     cargaCursosLocalStorage()
+
+    setTimeout(() => {
+
+        divLoader.style.display = 'none'
+
+        getFetch('../Datos/cursos.json')
+
+            .then( respuesta => cargarCursos(respuesta))
+
+    }, 4000);
 })
+
 cursosFintech.addEventListener('click', (e) => {
     e.preventDefault()
     adicionarParaCarrito(e)
 })
+
 carrito.addEventListener('click', eliminarCarrito)
 btnVaciarCar.addEventListener('click', vaciarCarrito)
 buscadorPalabraInput.addEventListener('input', buscarCursos)
 
 //funciones
+
+const getFetch = async(ruta) => {
+
+    const data = await fetch(ruta)
+
+    const respuesta = data.json()
+
+    return respuesta;
+
+}
 
 function limpiarHtml() {
     while (cursosFintech.firstChild) {
@@ -30,7 +54,9 @@ function limpiarHtml() {
 }
 
 function cargarCursos(cursosf) {
+
     limpiarHtml()
+
     cursosf.forEach(curso => {
 
         const { id, nombre, precio, imagenUrl } = curso;
@@ -84,6 +110,7 @@ function adicionarParaCarrito(e) {
     contadorCursosTotales()
     agregarCursoALaTablaCarrito()
 }
+
 function agregarCursoALaTablaCarrito() {
     while (listaCursosCarrito.firstChild) {
         listaCursosCarrito.removeChild(listaCursosCarrito.firstChild)
@@ -109,14 +136,17 @@ function agregarCursoALaTablaCarrito() {
     contadorCursosTotales()
     guardarLocalStorage(cursosSeleccionados)
 }
+
 function guardarLocalStorage(cursosAgregados) {
     const datosCursos = JSON.stringify(cursosAgregados);
     localStorage.setItem('cursosEducacion', datosCursos)
 }
+
 function cargaCursosLocalStorage() {
     cursosSeleccionados = JSON.parse(localStorage.getItem('cursosEducacion')) || []
     agregarCursoALaTablaCarrito()
 }
+
 function eliminarCarrito(e) {
     if (e.target.classList.contains('eliminar-curso')) {
         const idElement = e.target.getAttribute('data-id')
@@ -125,12 +155,14 @@ function eliminarCarrito(e) {
         agregarCursoALaTablaCarrito()
     }
 }
+
 function vaciarCarrito() {
 
     cursosSeleccionados = []
     contadorCursosTotales()
     agregarCursoALaTablaCarrito()
 }
+
 function contadorCursosTotales() {
 
     const cuentaCantidadTotalCursos = cursosSeleccionados.reduce((total, curso) => total + curso.cantidad, 0)
@@ -143,11 +175,13 @@ function contadorCursosTotales() {
         cantidadDeCursosCarrito.textContent = ''
     }
 }
+
 function buscarCursos(e) {
     const palabra = e.target.value
     const cursosBuscadosArray = cursos.filter(curso => curso.nombre.toLowerCase().indexOf(palabra.toLowerCase()) !== -1)
     cargarCursos(cursosBuscadosArray)
 }
+
 function mostrarMensajeAlert(title, icon, confirmButtonText, text, img, height) {
     Swal.fire({
         title: title,
