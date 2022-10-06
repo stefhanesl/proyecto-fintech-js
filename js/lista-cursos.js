@@ -123,13 +123,12 @@ function agregarCursoALaTablaCarrito() {
 
         const fila = document.createElement('tr');
 
-        const prec = parseFloat(precio.substring(1));
         fila.innerHTML = `
             <td><img src=${imagen} alt='curso' width='50px'/></td>
             <td>${nombre} </td>
-            <td>$${prec}</td>
+            <td>$${precio}</td>
             <td>${cantidad}</td>
-            <td>$${prec * cantidad}</td>
+            <td>$${precio * cantidad}</td>
             <td><a href='#' data-id=${id} class='eliminar-curso'>✖️</a></td>
         `
         listaCursosCarrito.appendChild(fila)
@@ -168,11 +167,8 @@ function contadorCursosTotales() {
 
     const cuentaCantidadTotalCursos = cursosSeleccionados.reduce((total, curso) => total + curso.cantidad, 0)
 
-<<<<<<< HEAD
-    const precioTotalCursos = cursosSeleccionados.reduce((total, curso) => total + (parseInt(curso.cantidad) * parseFloat(curso.precio)), 0)
-=======
     const precioTotalCursos = cursosSeleccionados.reduce((total, curso) => total + (curso.cantidad * curso.precio), 0)
->>>>>>> c19c603d1db0a2be6772652a9c98dc06feab4856
+
 
     if (cuentaCantidadTotalCursos > 0) {
         cantidadDeCursosCarrito.classList.add('cantidad-num')
@@ -182,10 +178,6 @@ function contadorCursosTotales() {
         cantidadDeCursosCarrito.classList.remove('cantidad-num')
         cantidadDeCursosCarrito.textContent = ''
         agregarTotalTablaCarrito.innerHTML = ''
-<<<<<<< HEAD
-        precioTotalCursos = 0
-=======
->>>>>>> c19c603d1db0a2be6772652a9c98dc06feab4856
     }
 }
 
@@ -209,43 +201,52 @@ function mostrarMensajeAlert(title, icon, confirmButtonText, text, img, height) 
 }
 
 function facturarCompra() {
-    Swal.fire({
-        title: 'Desea finalizar la compra?',
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, deseo',
-        cancelButtonText: 'No, no quiero',
-        confirmButtonColor: '#0f265c',
-        cancelButtonColor: '#FF907F',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Compra realizada con exito.',
-                html: `<input type="text" id="login" class="swal2-input" placeholder="Escriba sus nombre...">
-            <input type="number" id="number" class="swal2-input" placeholder="Escriba su telefono..."> 
-            <input type="text" id="correo" class="swal2-input" placeholder="Escriba su correo...">`,
-                icon: 'info',
-                confirmButtonColor: '#0f265c',
-                confirmButtonText: 'Finalizar compra'
-            }).then((respuesta) => {
+    if(cursosSeleccionados.length){
+        Swal.fire({
+            title: 'Desea finalizar la compra?',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, deseo',
+            cancelButtonText: 'No, no quiero',
+            confirmButtonColor: '#0f265c',
+            cancelButtonColor: '#FF907F',
+        }).then((result) => {
+            if (result.isConfirmed) {
                 Swal.fire({
-                    title: 'Gracias por su compra.',
-                    icon: 'success',
-                    confirmButtonText: '¡Cool!',
+                    title: 'Compra realizada con exito.',
+                    html: `<input type="text" id="login" class="swal2-input" placeholder="Escriba sus nombre...">
+                <input type="number" id="number" class="swal2-input" placeholder="Escriba su telefono..."> 
+                <input type="text" id="correo" class="swal2-input" placeholder="Escriba su correo...">`,
+                    icon: 'info',
+                    confirmButtonColor: '#0f265c',
+                    confirmButtonText: 'Finalizar compra'
+                }).then((respuesta) => {
+                    Swal.fire({
+                        title: 'Gracias por su compra.',
+                        icon: 'success',
+                        confirmButtonText: '¡Cool!',
+                        confirmButtonColor: '#0f265c'
+                    })
+                })
+                cursosSeleccionados = []
+                localStorage.removeItem("cursosEducacion")
+    
+            } else {
+                Swal.fire({
+                    title: 'Compra no realizada',
+                    icon: 'info',
+                    text: `La compra no ha sido realizada! Atención sus productos siguen en el carrito 😃`,
                     confirmButtonColor: '#0f265c'
                 })
-            })
-            cursosSeleccionados = []
-            localStorage.removeItem("cursosEducacion")
+            }
+        })
+    }else{
+        Swal.fire({
+            title: 'Usted no tiene productos en el carrito.',
+            icon: 'info',
+            confirmButtonColor: '#0f265c',
+        })
+    }
 
-        } else {
-            Swal.fire({
-                title: 'Compra no realizada',
-                icon: 'info',
-                text: `La compra no ha sido realizada! Atención sus productos siguen en el carrito 😃`,
-                confirmButtonColor: '#0f265c'
-            })
-        }
-    })
 
 }
