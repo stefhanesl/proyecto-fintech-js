@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inversiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../estilos/lista-cursos.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../estilos/spinnerStyle.css">
+</head>
+<body>
+  <nav id="container-navbar">
+    <div class="navbar-top">
+      <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
+      <div id="carrito-contenedor">
+        <div class="cantidad-cursos"></div>
+        <i class="fa fa-shopping-cart" id="icono-carrito-menu"></i>
+        <div id="carrito">
+          <table id="lista-cursos-carrito" >
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <h3 class="total-factura"></h3>
+          <div class="botones-tabla">
+            <a id="vaciar-carrito-ventana">Vaciar Carrito</a>
+            <a id="finalizar-compra-ventana">Finalizar Compra</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="navbar">
+      <ul>
+        <li> <a  href="/" class="navbar-item">Inicio</a>
+        </li> 
+        <li> <a  href="/paginas/lista-cursos.html"  class="navbar-item">Educación</a>
+        </li> 
+        <li> <a href="/paginas/inversiones.html"   class="navbar-item">Criptomonedas</a></li> 
+        
+      </ul>
+      <div class="btn-navbar-botones">
+        <div class="btn-navbar" id="btn-abrir-cuenta">Abre tu cuenta</div>
+        <div class="btn-navbar" id="btn-iniciar-sesion">Iniciar sesión</div>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container-form-registro">
+      <div id="form-abrir-cuenta">
+        <img src="/img/marca-x.png" class="icono-x" alt="icono-x"/>
+        <h3 id="titulo-form-data">¡Empecemos! <br/><span>Ingresa tus datos</span></h3>
+        <div class="mensaje-info"></div>
+        <form action="" id="formulario-principal">
+          <div class="data-form">
+            <input class="data-form-input" type="number" id="fid" name="fid">
+            <label  for="fid" class="data-form-text">ID*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="text" id="fnombre" name="fnombre">
+          
+            <label class="data-form-text" for="fnombre">Nombre*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="text" id="fapellido"" name="fapellido"">
+            
+            <label class="data-form-text" for="fapellido">Apellido*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="date" id="fnacimiento" name="fnacimiento" >
+            <label class="data-form-text" for="fnacimiento">Fecha de Nacimiento*</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="password" id="fcontrasena" name="fcontrasena">
+            <label  for="fcontrasena" class="data-form-text">Contraseña*</label>
+            <span class="form__line"></span>
+          </div>
+          <button type="submit" class="data-form-input"  id="btn-enviar-registro">Deseo mi cuenta</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container-form-iniciar-sesion">
+      <div id="form-iniciar-sesion">
+        <img src="/img/marca-x.png" class="icono-y" alt="icono-y"/>
+        <h3 id="titulo-form-iniciar-sesion">Iniciar sesión</h3>
+        <div class="mensaje-info"></div>
+        <form action=""  id="formulario-principal-iniciar-sesion">
+          <div class="data-form">
+            <input class="data-form-input" type="number" id="id" name="id" />
+            <label  for="id" class="data-form-text">Ingrese ID</label>
+            <span class="form__line"></span>
+          </div>
+          <div class="data-form">
+            <input class="data-form-input" type="password" id="contrasena" name="contrasena" />
+            <label  for="contrasena" class="data-form-text">Ingrese contraseña</label>
+            <span class="form__line"></span>
+          </div>
+          <button type="submit" class="data-form-input" " id="btn-submit-iniciar-sesion">Entrar</button>
+        
+        </form>
+      </div>
+    </div>
+
+
+    <main>
+
+      <div class="carga">
+        <div class="scaling-squares-spinner" :style="spinnerStyle">
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+          <div class="square"></div>
+        </div>
+        <h1>Cargando...</h1>
+      </div>
+
+      <div class="contenedor-criptomonedas table-responsive-xl">
+        <table class="table table-hover">
+          <thead>
+            <tr  class="table-secondary">
+              <th scope="col">#</th>
+              <th scope="col">Cripto</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Símbolo</th>
+              <th scope="col">Precio</th>
+              <th scope="col">High Day</th>
+              <th scope="col">Low Day</th>
+              <th scope="col">Mer. Cap.</th>
+              <th scope="col">Vol.(24h)</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="logo"></div>
+      <div class="informacion-footer">© Todos los derechos reservados Fintech 2022.</div>
+    </footer>
+    <script type='text/javascript' data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({c: '4ee4f08d-5c78-480a-aed0-25f47d5ecbb6', f: true }); done = true; } }; })();</script>
+    <script src="/js/lista-cursos.js"></script>
+    <script src="../script.js"></script>
+    <script src="/js/inversiones.js"></script>
+
+</body>
+</html>

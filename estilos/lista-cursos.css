@@ -1,0 +1,371 @@
+
+
+.navbar-top{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 40px;
+}
+
+#carrito-contenedor{
+  margin-right: 60px;
+  padding-top: 50px;
+  position: relative;
+  cursor: pointer;
+}
+
+.cantidad-num{
+  position: absolute;
+  left: 95%;
+  top: 25%;
+  background-color: #2e3d5e;
+  width: 20px;
+  height: 20px;
+  padding: 8px 5px 5px 5px;
+  color: #fff;
+  text-align: center;
+  border-radius: 100%;
+}
+#carrito-contenedor #carrito{
+  display: none;
+}
+#carrito{
+  position: absolute;
+  display: grid;
+  grid-template-rows: 1fr 25px 40px;
+  right: 6.5%;
+  top: 50%;
+  min-height: 400px;
+  min-width: 480px;
+  background-color: #fff;
+  border-radius: 10px;
+  z-index: 100;
+  padding: 10px 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+
+}
+
+#carrito-contenedor:hover #carrito{
+  display: block;
+}
+table#lista-cursos-carrito{
+ width: 100%;
+ border-collapse:separate;
+ padding: 0 20px;
+ margin-bottom: 10em;
+}
+table#lista-cursos-carrito thead tr{
+  display: grid;
+  grid-template-columns: 3em 170px repeat(3, 5em) 20px;
+  gap: 20px;
+  align-items: center;
+  justify-items: center;
+
+ }
+ table#lista-cursos-carrito thead th{
+  margin-right: 3px;
+ }
+
+table#lista-cursos-carrito tr{
+  border-bottom: 1px solid #a6a4c1;
+  padding-bottom: 15px;
+ }
+
+table#lista-cursos-carrito tbody tr{
+  display: grid;
+  grid-template-columns: 3em 170px repeat(3, 5em) 20px;
+  gap: 20px;
+
+ }
+
+ table#lista-cursos-carrito tbody td:nth-child(2){
+  flex: 0.6 0 calc(20%);
+ }
+ table#lista-cursos-carrito td:nth-child(4),
+ table#lista-cursos-carrito td:nth-child(5){
+  flex: 0.3 0
+
+ }
+ table#lista-cursos-carrito td:nth-child(4){
+  text-align: center;
+ }
+ table#lista-cursos-carrito .eliminar-curso{
+  text-decoration: none;
+ }
+
+ #carrito h5{
+  text-align: center;
+ }
+ #carrito .botones-tabla{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  bottom: 3%;
+  left: 0%;
+
+ }
+#vaciar-carrito-ventana, #finalizar-compra-ventana{
+  display: inline-block;
+  background: #E9ECF3;
+  border-radius: 4px;
+  padding: 10px 25px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+ } 
+ #finalizar-compra-ventana{
+  margin-left: 10px;
+  background: #0F265C;
+  color: #fff;
+ }
+
+ main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0px;
+  position: relative;
+}
+main .main-top{
+  position: absolute;
+  top: 0px;
+}
+#buscador{
+  position: relative;
+  box-sizing: border-box;
+  height: 40px;
+  z-index: 40;
+}
+
+#buscador-input {
+  width: 100%;
+  height: 2.8rem;
+  background: #f5f5f5;
+  outline: none;
+  border: none;
+  border-radius: 1.6rem;
+  padding: 0 3rem 0 1.5rem;
+  font-size: 1rem;
+}
+
+#buscador-icono {
+  position: absolute;
+  top: 0%;
+  left: 105%;
+  width: 3.5rem;
+  height: 2.8rem;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+#buscador-icono:hover {
+  cursor: pointer;
+}
+
+#cursos-fintech{
+  display: flex;
+  float: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 80px 100px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 100px;
+  margin-top: 80px;
+}
+.card {
+  position: relative;
+  width: 270px;
+  height: 380px;
+  background: #0F265C;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  transform: skewY(345deg);
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  top: -70%;
+  transform: skewY(390deg);
+}
+
+.card::after {
+  content: "FINTECH";
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+  font-weight: 600;
+  font-size: 3em;
+  color: rgba(240, 226, 226, 0.1);
+}
+
+.card .imgBox {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  z-index: 1;
+}
+
+.card .contentBox {
+  position: relative;
+  top: 5%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.card .contentBox h3 {
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card .contentBox .price {
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card .contentBox .buy {
+  position: relative;
+  top: 100px;
+  opacity: 0;
+  padding: 10px 30px;
+  margin-top: 15px;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+  background: #E9ECF3;
+  font-weight: 600;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.card:hover .contentBox .buy {
+  top: 0;
+  opacity: 1;
+}
+
+.curso {
+  height: 200px;
+  width: 380px;
+  border-radius: 50%;
+}
+#carrito-de-compras table {
+  border: 1px solid rgb(65, 13, 13);
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+body .back-main{
+  visibility: hidden;
+  position: absolute;
+  top: 280px;
+  width: 100vw;
+  height: 80vh;
+}
+
+
+.total-factura{
+    position: absolute;
+    width: 100%;
+    bottom: 15%;
+    text-align: center;
+    
+}
