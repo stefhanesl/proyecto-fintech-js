@@ -8,4 +8,4 @@ Este proyecto fue hecho para simular una fintech que cuenta con banca en línea,
 - SweetAlert: se uso para enviar alertas a los usuarios cuando el dato es invalido o ha completado una accion con exito.
 
 ### API
-- La API de criptomonedas utilizada es: https://fintech-banca-en-linea-csk1kntx2-stefhanesl.vercel.app/
+- La API de criptomonedas utilizada es: https://fintech-banca-en-linea.vercel.app/
