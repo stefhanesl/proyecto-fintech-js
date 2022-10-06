@@ -42,15 +42,45 @@
     text-decoration: underline;
     font-weight: 800;
 }
-
-div#inicio-main{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
+#inicio-main{
+    display: grid;
+    width: 100%;
+    height: 250px;
+    grid-template-areas: 
+                         "section1" 
+                         "section2"
+                         "section3"
+                         "footer";
+    grid-template-rows: auto 1200px 900px 800px;   
+    row-gap: 500px;
     justify-content: center;
+    align-content: center;
     align-items: center;
+    justify-items: center;
+
 }
+
+#inicio-main > #pageiniciosesion {
+    grid-area: section1;
+    position: absolute;
+    top: 25%;
+    padding-bottom: 200px;
+    height: auto;
+  }
+  
+  #inicio-main > #recargar {
+    grid-area: section2;
+    position: absolute;
+    top: 150%;
+  }
+  
+  #inicio-main > #transferir  {
+    grid-area: section3;
+    position: absolute;
+    top: 250%;
+  }
+
+
 div.btn-navbar-botones{
     margin-right: 70px;
     float: right;
@@ -75,16 +105,6 @@ div.btn-navbar-botones{
     opacity: 0.65;
 }
 
-
-#pageiniciosesion{
-    position: absolute;
-    top: 10%;
-    left: 15%;
-    transform: translate(28%, 10%);
-    margin: 0 auto;
-    height: auto;
-    
- }
  #datos-cliente-contenedor{
      width: 100%;
      display: flex;
@@ -103,7 +123,7 @@ div.btn-navbar-botones{
      align-self: flex-start;
      margin-bottom: 10px;    
  }
- /* tabla */
+
  #balance-cuenta table{
      width: 100%;
      border-collapse: collapse; margin: 25px 0; font-size: 1em; font-family: sans-serif; min-width: 450px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -115,37 +135,12 @@ div.btn-navbar-botones{
  .balance-tabla tbody tr { border-bottom: 1px solid #dddddd; } 
  .balance-tabla tbody tr:nth-of-type(even) { background-color: #f3f3f3; } .styled-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }
 
-section#recargar{
+footer{
     position: absolute;
-    top: 1000px;
-}
-
- #transferir{
-    position: absolute;
-    top: 1500px;
- }
- #transferir button{
-    color: #FFF;
- }
- /* #invertir{
-    position: absolute;
-    top: 1650px;
- } */
- #carrito-de-compras{
-    position: absolute;
-    top: 1900px;
- }
- body footer{
-    position: absolute;
-    top: 2500px;
+    top: 350%;
+    height: 60px;
     background-color: #0f265c;
-
- }
- .footer{
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    padding-top: 2em;
     color: #fff;
     width: 100%;
 }

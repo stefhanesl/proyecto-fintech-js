@@ -11,7 +11,7 @@ let cursosSeleccionados = []
 
 //Eventos
 document.addEventListener('DOMContentLoaded', (e) => {
-    
+
     let divLoader = document.querySelector('.loader')
 
     cargaCursosLocalStorage()
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         getFetch('../Datos/cursos.json')
 
-            .then( respuesta => cargarCursos(respuesta))
+            .then(respuesta => cargarCursos(respuesta))
 
     }, 4000);
 })
@@ -38,7 +38,7 @@ buscadorPalabraInput.addEventListener('input', buscarCursos)
 btnFinalizarCompra.addEventListener('click', facturarCompra)
 //funciones
 
-const getFetch = async(ruta) => {
+const getFetch = async (ruta) => {
 
     const data = await fetch(ruta)
 
@@ -173,7 +173,7 @@ function contadorCursosTotales() {
     if (cuentaCantidadTotalCursos > 0) {
         cantidadDeCursosCarrito.classList.add('cantidad-num')
         cantidadDeCursosCarrito.textContent = cuentaCantidadTotalCursos
-        agregarTotalTablaCarrito.innerHTML = `El total de su compra es: ${(precioTotalCursos).toFixed(2)}`
+        agregarTotalTablaCarrito.innerHTML = `El total de su compra es: $${(precioTotalCursos).toFixed(2)}`
     } else {
         cantidadDeCursosCarrito.classList.remove('cantidad-num')
         cantidadDeCursosCarrito.textContent = ''
@@ -200,7 +200,7 @@ function mostrarMensajeAlert(title, icon, confirmButtonText, text, img, height) 
     })
 }
 
-function facturarCompra(){
+function facturarCompra() {
     Swal.fire({
         title: 'Desea finalizar la compra?',
         icon: 'info',
@@ -209,16 +209,16 @@ function facturarCompra(){
         cancelButtonText: 'No, no quiero',
         confirmButtonColor: '#0f265c',
         cancelButtonColor: '#FF907F',
-    }).then((result)=>{
-        if(result.isConfirmed){
+    }).then((result) => {
+        if (result.isConfirmed) {
             Swal.fire({
-            title: 'Compra realizada con exito.',
-            html: `<input type="text" id="login" class="swal2-input" placeholder="Escriba sus nombre...">
+                title: 'Compra realizada con exito.',
+                html: `<input type="text" id="login" class="swal2-input" placeholder="Escriba sus nombre...">
             <input type="number" id="number" class="swal2-input" placeholder="Escriba su telefono..."> 
             <input type="text" id="correo" class="swal2-input" placeholder="Escriba su correo...">`,
-            icon: 'info',
-            confirmButtonColor: '#0f265c',
-            confirmButtonText: 'Finalizar compra'
+                icon: 'info',
+                confirmButtonColor: '#0f265c',
+                confirmButtonText: 'Finalizar compra'
             }).then((respuesta) => {
                 Swal.fire({
                     title: 'Gracias por su compra.',
@@ -230,7 +230,7 @@ function facturarCompra(){
             cursosSeleccionados = []
             localStorage.removeItem("cursosEducacion")
 
-        }else{
+        } else {
             Swal.fire({
                 title: 'Compra no realizada',
                 icon: 'info',

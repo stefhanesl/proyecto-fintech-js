@@ -43,13 +43,15 @@
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 
 }
+
 #carrito-contenedor:hover #carrito{
   display: block;
 }
 table#lista-cursos-carrito{
  width: 100%;
  border-collapse:separate;
- padding: 0 20px
+ padding: 0 20px;
+ margin-bottom: 10em;
 }
 table#lista-cursos-carrito thead tr{
   display: grid;
@@ -62,9 +64,7 @@ table#lista-cursos-carrito thead tr{
  table#lista-cursos-carrito thead th{
   margin-right: 3px;
  }
- table#lista-cursos-carrito thead th:nth-child(2){
-  min-width: 30%;
- }
+
 table#lista-cursos-carrito tr{
   border-bottom: 1px solid #a6a4c1;
   padding-bottom: 15px;
@@ -362,4 +362,10 @@ body .back-main{
 }
 
 
-
+.total-factura{
+    position: absolute;
+    width: 100%;
+    bottom: 15%;
+    text-align: center;
+    
+}
