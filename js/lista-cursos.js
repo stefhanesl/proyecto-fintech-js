@@ -8,6 +8,7 @@ const buscadorPalabraInput = document.querySelector('#buscador-input')
 const agregarTotalTablaCarrito = document.querySelector('.total-factura')
 const btnFinalizarCompra = document.querySelector('#finalizar-compra-ventana')
 let cursosSeleccionados = []
+let cursos = []
 
 //Eventos
 document.addEventListener('DOMContentLoaded', (e) => {
@@ -22,7 +23,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         getFetch('../Datos/cursos.json')
 
-            .then(respuesta => cargarCursos(respuesta))
+            .then(respuesta => {
+                cursos = respuesta
+                cargarCursos(respuesta)
+            })
 
     }, 4000);
 })
