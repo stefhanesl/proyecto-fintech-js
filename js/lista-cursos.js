@@ -168,7 +168,11 @@ function contadorCursosTotales() {
 
     const cuentaCantidadTotalCursos = cursosSeleccionados.reduce((total, curso) => total + curso.cantidad, 0)
 
+<<<<<<< HEAD
     const precioTotalCursos = cursosSeleccionados.reduce((total, curso) => total + (parseInt(curso.cantidad) * parseFloat(curso.precio)), 0)
+=======
+    const precioTotalCursos = cursosSeleccionados.reduce((total, curso) => total + (curso.cantidad * curso.precio), 0)
+>>>>>>> c19c603d1db0a2be6772652a9c98dc06feab4856
 
     if (cuentaCantidadTotalCursos > 0) {
         cantidadDeCursosCarrito.classList.add('cantidad-num')
@@ -178,7 +182,10 @@ function contadorCursosTotales() {
         cantidadDeCursosCarrito.classList.remove('cantidad-num')
         cantidadDeCursosCarrito.textContent = ''
         agregarTotalTablaCarrito.innerHTML = ''
+<<<<<<< HEAD
         precioTotalCursos = 0
+=======
+>>>>>>> c19c603d1db0a2be6772652a9c98dc06feab4856
     }
 }
 
