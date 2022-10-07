@@ -4,6 +4,14 @@ const formRecarga = document.querySelector('.form-recarga')
 const formTransferencia = document.querySelector('.form-transferir-dinero')
 const tablaMovimientos = document.querySelector('#balance-cuenta tbody')
 const botonSalir = document.querySelector('#btn-salir-sesion')
+const btnRecargaMenu = document.querySelector('#recargar-menu')
+const btnTransferirMenu = document.querySelector('#transferir-menu')
+const btnInicioMenu = document.querySelector('#inicio-menu')
+const interfazMenu = document.querySelector('#pageiniciosesion')
+const interfazRecargar = document.querySelector('#recargar')
+const interfazTransferir = document.querySelector('#transferir')
+
+
 
 let saldoAgregado
 let movimientosObjeto
@@ -25,7 +33,12 @@ formTransferencia.addEventListener('submit', (e) => {
 botonSalir.addEventListener('click', (e) => {
     localStorage.removeItem('cliente-sesion')
 })
+btnRecargaMenu.addEventListener('click', mostrarAcciones)
+btnTransferirMenu.addEventListener('click', mostrarAcciones)
+btnInicioMenu.addEventListener('click', mostrarAcciones)
 
+
+//CLASES
 class Movimientos {
     constructor(objFecha, objNumCuenta, objDetalle, objMonto, objSaldo) {
         this.objFecha = objFecha;
@@ -94,6 +107,7 @@ function recargarSaldo(montoIngresado) {
 
     mostrarMensajeSweet('Recarga', 'success', false, 2000, 'La recarga ha sido exitosa.')
     cargarResumenMovimientos(arrayMovimientos)
+    formRecarga.reset()
 }
 //!----------------------------- TRANSFERENCIA -----------------------------------
 
@@ -141,6 +155,7 @@ function Transferir(clienteEncontrado, montoTransferir, motivo) {
     localStorage.setItem('clientes', JSON.stringify(...cambiosTransaccionales))
     mostrarMensajeSweet('Transferencia', 'success', false, 3000, `La transferencia de $${montoTransferir} ha sido exitosa.`)
     cargarResumenMovimientos(arrayMovimientos)
+    formTransferencia.reset()
 }
 
 
@@ -195,4 +210,26 @@ function mostrarMensajeSweet(title, icon, showConfirmButton, timer, text) {
         text: text,
     })
 
+}
+function mostrarAcciones(e){
+    
+    if(e.target.id === 'recargar-menu'){
+
+        interfazMenu.style.visibility = 'hidden';
+        interfazTransferir.style.visibility = 'hidden';
+        interfazRecargar.style.visibility = 'visible';
+
+    }else if(e.target.id === 'transferir-menu' ){
+       
+        interfazMenu.style.visibility = 'hidden';
+        interfazRecargar.style.visibility = 'hidden';
+        interfazTransferir.style.visibility = 'visible';
+
+    }else{
+       
+        interfazTransferir.style.visibility = 'hidden';
+        interfazRecargar.style.visibility = 'hidden';
+        interfazMenu.style.visibility = 'visible';
+
+    }
 }

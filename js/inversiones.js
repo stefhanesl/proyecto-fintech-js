@@ -44,7 +44,7 @@ const peticionApi = async () => {
 setInterval(() => {
     peticionApi()
 }, 3000);
-spinner()
+
 function limpiarHTML() {
     while (tablaCripto.firstChild) {
         tablaCripto.removeChild(tablaCripto.firstChild)

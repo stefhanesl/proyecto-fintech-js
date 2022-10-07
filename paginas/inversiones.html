@@ -16,32 +16,7 @@
   <nav id="container-navbar">
     <div class="navbar-top">
       <a href="/" id="logo"><img src="/img/logo-fintech.jpg" alt="logo"/></a>
-      <div id="carrito-contenedor">
-        <div class="cantidad-cursos"></div>
-        <i class="fa fa-shopping-cart" id="icono-carrito-menu"></i>
-        <div id="carrito">
-          <table id="lista-cursos-carrito" >
-            <thead>
-              <tr>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-          <h3 class="total-factura"></h3>
-          <div class="botones-tabla">
-            <a id="vaciar-carrito-ventana">Vaciar Carrito</a>
-            <a id="finalizar-compra-ventana">Finalizar Compra</a>
-          </div>
-        </div>
-      </div>
+      
     </div>
     <div id="navbar">
       <ul>
@@ -158,10 +133,11 @@
       <div class="logo"></div>
       <div class="informacion-footer">© Todos los derechos reservados Fintech 2022.</div>
     </footer>
+
     <script type='text/javascript' data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({c: '4ee4f08d-5c78-480a-aed0-25f47d5ecbb6', f: true }); done = true; } }; })();</script>
-    <script src="/js/lista-cursos.js"></script>
-    <script src="../script.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/inversiones.js"></script>
+    <script src="../script.js"></script>
 
 </body>
 </html>

@@ -1,22 +1,4 @@
 
-#recargar{
-    width: 50%;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 670px;
-    text-align: center;
-
-}
-#recargar .tarjeta-credito{
-    width: 100%;
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    
-}
 #recargar #cantidad-recargada{
     width: 100%;
     outline: none;
