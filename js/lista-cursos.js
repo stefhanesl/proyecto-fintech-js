@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 cursos = respuesta
                 cargarCursos(respuesta)
             })
+            .catch( error => {
+                console.log(error)
+                cursosFintech.innerHTML = 'Información no disponible.'
+            })
 
     }, 4000);
 })
@@ -234,7 +238,7 @@ function facturarCompra() {
                 })
                 cursosSeleccionados = []
                 localStorage.removeItem("cursosEducacion")
-    
+                agregarCursoALaTablaCarrito()
             } else {
                 Swal.fire({
                     title: 'Compra no realizada',

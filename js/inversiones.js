@@ -18,27 +18,31 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 const peticionApi = async () => {
 
-    const response = await fetch('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD')
-    const data = await response.json()
-    let datos = data.Data
+    try{
+        const response = await fetch('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD')
+        const data = await response.json()
+        let datos = data.Data
 
-    limpiarHTML()
+        limpiarHTML()
 
-    datos.forEach((cripto, index) => {
-        const row = document.createElement('tr')
-        row.innerHTML = `
-            <th scope="row">${index + 1}</th>
-            <td><img src='https://www.cryptocompare.com${cripto.CoinInfo.ImageUrl}' width='23px'/></td>
-            <td>${cripto.CoinInfo.FullName}</td>
-            <td>${cripto.CoinInfo.Name}</td>
-            <td>${cripto.DISPLAY.USD.PRICE}</td>
-            <td>${cripto.DISPLAY.USD.HIGHDAY}</td>
-            <td>${cripto.DISPLAY.USD.LOWDAY}</td>
-            <td>${cripto.DISPLAY.USD.MKTCAP}</td>
-            <td>${cripto.DISPLAY.USD.VOLUME24HOUR}</td>
-        `
-        tablaCripto.appendChild(row)
-    })
+        datos.forEach((cripto, index) => {
+            const row = document.createElement('tr')
+            row.innerHTML = `
+                <th scope="row">${index + 1}</th>
+                <td><img src='https://www.cryptocompare.com${cripto.CoinInfo.ImageUrl}' width='23px'/></td>
+                <td>${cripto.CoinInfo.FullName}</td>
+                <td>${cripto.CoinInfo.Name}</td>
+                <td>${cripto.DISPLAY ? cripto.DISPLAY.USD.PRICE : 'La información no esta disponible.'}</td>
+                <td>${cripto.DISPLAY ? cripto.DISPLAY.USD.HIGHDAY : 'La información no esta disponible.'}</td>
+                <td>${cripto.DISPLAY ? cripto.DISPLAY.USD.LOWDAY : 'La información no esta disponible.'}</td>
+                <td>${cripto.DISPLAY ? cripto.DISPLAY.USD.MKTCAP : 'La información no esta disponible.'}</td>
+                <td>${cripto.DISPLAY ? cripto.DISPLAY.USD.VOLUME24HOUR : 'La información no esta disponible.'}</td>
+            `
+            tablaCripto.appendChild(row)
+        })
+    }catch (error){
+        console.log('ERROR: ', error)
+    }
 
 }
 setInterval(() => {

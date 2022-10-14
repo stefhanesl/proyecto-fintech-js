@@ -11,8 +11,6 @@ const interfazMenu = document.querySelector('#pageiniciosesion')
 const interfazRecargar = document.querySelector('#recargar')
 const interfazTransferir = document.querySelector('#transferir')
 
-
-
 let saldoAgregado
 let movimientosObjeto
 let arrayMovimientos = []
@@ -40,8 +38,7 @@ btnInicioMenu.addEventListener('click', mostrarAcciones)
 
 //CLASES
 class Movimientos {
-    constructor(objFecha, objNumCuenta, objDetalle, objMonto, objSaldo) {
-        this.objFecha = objFecha;
+    constructor( objNumCuenta, objDetalle, objMonto, objSaldo ) {
         this.objNumCuenta = objNumCuenta;
         this.objDetalle = objDetalle;
         this.objMonto = objMonto;
@@ -72,7 +69,7 @@ function iniciarCuenta(clienteObjeto) {
             </li>
             <li><div class='datos-cliente'><strong>Fecha de nacimiento:  </strong>${nacimiento}</div></li>
             <li><div class='datos-cliente'><strong>Nº cuenta:  </strong>${numeroCuenta}</div></li>
-            <li><div class='datos-cliente'><strong>Saldo:  </strong>${saldo}</div></li>
+            <li><div class='datos-cliente saldo-cliente'><strong>Saldo:  </strong><span>$${saldo}</span></div></li>
              
         </ul>
     `
@@ -93,17 +90,18 @@ function validarDatosTarjeta(e) {
         mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese todos los campos.')
         return;
     }
-    if (e.target[4].value <= 1) {
-        // mostrarModal()
-        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese un monto mayor a $1 USD.')
+
+    if(parseFloat(e.target[4].value) <= 1){
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese un monto mayor a $1 USD.') 
         return;
     }
-
+    
     recargarSaldo(e.target[4].value);
 }
+
 function recargarSaldo(montoIngresado) {
     saldoAgregado += parseFloat(montoIngresado)
-    arrayMovimientos.push(new Movimientos(Date.now(), 'Propio', 'Dinero de recarga', montoIngresado, saldoAgregado))
+    arrayMovimientos.push(new Movimientos(  'Propio', 'Dinero de recarga', montoIngresado, saldoAgregado))
 
     mostrarMensajeSweet('Recarga', 'success', false, 2000, 'La recarga ha sido exitosa.')
     cargarResumenMovimientos(arrayMovimientos)
@@ -113,43 +111,37 @@ function recargarSaldo(montoIngresado) {
 
 function validarDatosTransferencia(e) {
     if (e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == '') {
-        // mostrarModal()
         mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese todos los campos.')
         return;
     }
-    if (e.target[1].value <= 1) {
-        // mostrarModal()
-        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese un monto mayor a $1 USD.')
+
+    if(parseFloat(e.target[1].value) <= 1){
+        mostrarMensajeSweet('Error', 'error', false, 2000, 'Ingrese un monto mayor a $1 USD.') 
         return;
     }
-
+    
     const clienteAccesado = clientesTotales.find(cliente => cliente.numeroCuenta === e.target[0].value)
-    if (!clienteAccesado) {
-        // mostrarModal()
-        mostrarMensajeSweet('Error', 'error', false, 2000, 'La cuenta ingresada no existe.')
-        return;
-    }
-    if (datosCliente.saldo < e.target[1].value) {
-        // mostrarModal()
-        mostrarMensajeSweet('Error', 'error', false, 2000, 'Usted no cuenta con saldo para realizar esta operación.')
-        return;
-    }
 
-    Transferir(e.target[0].value, e.target[1].value, e.target[2].value)
+    !clienteAccesado
+        ? mostrarMensajeSweet('Error', 'error', false, 2000, 'La cuenta ingresada no existe.') 
+        : (datosCliente.saldo < e.target[1].value)
+        ? mostrarMensajeSweet('Error', 'error', false, 2000, 'Usted no cuenta con saldo para realizar esta operación.') 
+        : Transferir(e.target[0].value, e.target[1].value, e.target[2].value)
 }
+
 function Transferir(clienteEncontrado, montoTransferir, motivo) {
     montoTransferir = parseFloat(montoTransferir)
     const cambiosTransaccionales = clientesTotales.map(cliente => {
         if (cliente.numeroCuenta === clienteEncontrado) {
             cliente.saldo += montoTransferir
 
-            cliente.movimientos.push(new Movimientos(Date.now(), datosCliente.numeroCuenta, `Dinero recibido: ${motivo}`, montoTransferir, cliente.saldo))
+            cliente.movimientos.push(new Movimientos( datosCliente.numeroCuenta, `Dinero recibido: ${motivo}`, montoTransferir, cliente.saldo))
         } else if (cliente.id === datosCliente.id) {
 
             cliente.saldo -= montoTransferir
             saldoAgregado -= montoTransferir
 
-            arrayMovimientos.push(new Movimientos(Date.now(), clienteEncontrado, `Dinero transferido: ${motivo}`, montoTransferir, saldoAgregado))
+            arrayMovimientos.push(new Movimientos( clienteEncontrado, `Dinero transferido: ${motivo}`, montoTransferir, saldoAgregado))
         }
     })
     localStorage.setItem('clientes', JSON.stringify(...cambiosTransaccionales))
@@ -178,7 +170,7 @@ function cargarResumenMovimientos(movimientosCuenta) {
         localStorage.setItem('clientes', JSON.stringify(datos))
     }
     movimientosCuenta.forEach(detalleMovimientos => {
-        const { objFecha, objNumCuenta, objDetalle, objMonto, objSaldo } = detalleMovimientos
+        const { objNumCuenta, objDetalle, objMonto, objSaldo } = detalleMovimientos
 
         const DateTime = luxon.DateTime
         const fechaAhora = DateTime.now()
@@ -188,11 +180,14 @@ function cargarResumenMovimientos(movimientosCuenta) {
                 <th scope="row">${fechaAhora.c.day}/${fechaAhora.c.month}/${fechaAhora.c.year}  -  ${fechaAhora.c.hour}h:${fechaAhora.c.minute}m</th>
                 <td>${objNumCuenta}</td>
                 <td>${objDetalle}</td>
-                <td>${objMonto}</td>
-                <td>${objSaldo}</td>
+                <td>$${objMonto}</td>
+                <td>$${objSaldo}</td>
         `
         tablaMovimientos.appendChild(trFila)
     });
+    console.log(saldoAgregado)
+    const saldoCliente = document.querySelector('.saldo-cliente span')
+    saldoCliente.innerHTML = `$${saldoAgregado}` 
 }
 
 function limpiarMovimientos() {
