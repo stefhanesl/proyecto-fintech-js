@@ -185,7 +185,7 @@ function cargarResumenMovimientos(movimientosCuenta) {
         `
         tablaMovimientos.appendChild(trFila)
     });
-    console.log(saldoAgregado)
+
     const saldoCliente = document.querySelector('.saldo-cliente span')
     saldoCliente.innerHTML = `$${saldoAgregado}` 
 }
